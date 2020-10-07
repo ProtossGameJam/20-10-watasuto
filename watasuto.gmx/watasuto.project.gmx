@@ -19,12 +19,14 @@
     <object>objects\obj_story</object>
     <object>objects\obj_main</object>
     <object>objects\obj_select</object>
+    <object>objects\o_game_chat</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_main</room>
     <room>rooms\r_select</room>
+    <room>rooms\r_chatting_game</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
