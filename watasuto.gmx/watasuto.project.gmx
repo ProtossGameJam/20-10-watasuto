@@ -13,6 +13,7 @@
   </scripts>
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
+    <font>fonts\f_murukmuruk</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_watasuto_title</object>
