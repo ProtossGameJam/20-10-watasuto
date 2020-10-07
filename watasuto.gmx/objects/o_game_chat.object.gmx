@@ -107,7 +107,10 @@ else {
         var selected = viewers[| viewer_amount-1];
     }
     
+    // 새 채팅 생성
     selected[? "life"] = chatting_life;
+    selected[? "checked"] = false;
+    
     if !(irandom(99) &lt; chatting_bad_ratio+chatting_bad_ratio_adjust){
         if (chatting_bad_ratio_adjust_max &gt; 0)
             chatting_bad_ratio_adjust +=  (100-chatting_bad_ratio) / (100/chatting_bad_ratio*chatting_bad_ratio_adjust_max);
@@ -116,6 +119,9 @@ else {
         chatting_bad_ratio_adjust = 0;
         selected[? "bad"] = true;
     }
+    
+    selected[? "name"] = choose("무이", "잇창명", "산소", "암흑마왕 2호", "착한유저", "못된유저");
+    selected[? "chat"] = choose("채팅채팅크크크크", "이건 좀 너무한거 아닌가요??", "채팅채팅채팅크크크크", "망해버려!", "넘 조아요~~~~");
     
     ds_list_destroy(empty_list);
 }
@@ -279,7 +285,7 @@ for(var i=0; i&lt;viewer_amount; i++){
         draw_set_valign(fa_top)
         draw_text(left, top + viewer_height*i, viewer[? "name"]);
         draw_set_color(c_gray);
-        draw_text(left + 60, top + viewer_height*i, viewer[? "chat"]);
+        draw_text(left + string_width(viewer[? "name"]) + 5, top + viewer_height*i, viewer[? "chat"]);
     }
     
 }
