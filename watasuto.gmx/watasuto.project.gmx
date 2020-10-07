@@ -8,11 +8,23 @@
   <sprites name="sprites"/>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\watasuto_init.gml</script>
+  </scripts>
+  <fonts name="fonts">
+    <font>fonts\f_nanumgothic</font>
+  </fonts>
   <objects name="objects">
-    <object>objects\_oPhoneCall</object>
+    <object>objects\obj_watasuto_title</object>
+    <object>objects\obj_story</object>
+    <object>objects\obj_main</object>
+    <object>objects\obj_select</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\_rPhoneCall</room>
+    <room>rooms\r_watasuto_title</room>
+    <room>rooms\r_story</room>
+    <room>rooms\r_main</room>
+    <room>rooms\r_select</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

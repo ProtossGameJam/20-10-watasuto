@@ -25,27 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>randomize();
-
-if(vk_left != 37 &amp;&amp; vk_down != 40)
-   show_error('your assumtion is wrong lol', true);
-
-correct := 0;
-nextArr := array_create(10);
-
-/*
-gamemaker keycodes: vk_left = 37, vk_down = 40
-       +--+
-      |38|+
-  +--+--+--+
- |37|40|39|+
-+--+--+--+|
-+--+--+--+
-*/
-for(var i = 0; i &lt; 10; i++)
-   nextArr[i] = irandom_range(vk_left, vk_down);
-timeWindow := 120;
-remaining := 120;
+            <string>line = 0;
 </string>
           </argument>
         </arguments>
@@ -68,22 +48,17 @@ remaining := 120;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var iAny = false;
+            <string>var next =
+   mouse_check_button_pressed(mb_left) ||
+   keyboard_check_pressed(vk_space) ||
+   keyboard_check_pressed(vk_enter);
 
-for(var i = vk_left; i &lt;= vk_down; i++)
-   iAny |= keyboard_check_pressed(i);
-if(keyboard_check_pressed(nextArr[correct%10])) {
-   nextArr[correct++%10] = irandom_range(vk_left, vk_down);
-   timeWindow = 120*exp(-correct/100);
-   remaining = timeWindow;
-} else if(iAny)
-   remaining -= timeWindow div 2;
-
-if(--remaining &lt;= 0) {
-   var t = get_timer();
-   while(get_timer() &lt; t + 1000000) {}
-   game_end();
-}
+if(next)
+   if(++line == 4) {
+      global.name = get_string('스트리머 이름 입력', '뀨');
+      watasuto_init();
+      room_goto(r_main);
+   }
 </string>
           </argument>
         </arguments>
@@ -106,13 +81,22 @@ if(--remaining &lt;= 0) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var arrows = "&lt;^&gt;v";
+            <string>var lineText;
+lineText[0] = '나도 스트리머... 해볼까...';
+lineText[1] = '뭐 내가 그런 걸 할 수 있을 리가 없지만.';
+lineText[2] = '.....';
+lineText[3] = '하지만 그 꿈을 이뤄 줄 수 있는 이세계로 온다면 어떻게 될까요~~~?';
 
-draw_set_colour($000000);
-for(var i = 0; i &lt; 10; i++)
-   draw_text(10, 10 + 20*i, string_char_at(arrows, nextArr[(correct + i)%10] - vk_left + 1));
-draw_rectangle(50, 10, 50 + max(0, 100*remaining/timeWindow), 20, false);
-draw_text(50, 25, correct);
+draw_set_color($ffffff);
+draw_set_alpha(1);
+draw_set_font(f_nanumgothic);
+draw_set_halign(fa_left);
+draw_set_valign(fa_bottom);
+
+if(line &lt; 4) {
+   draw_text(8, room_height - 48, '(임시 틀이니까 말풍선은 대충 할게요)');
+   draw_text(8, room_height - 8, lineText[line]);
+}
 </string>
           </argument>
         </arguments>
