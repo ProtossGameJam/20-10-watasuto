@@ -43,7 +43,7 @@ for(var i=0; i&lt;viewer_amount; i++){
     ds_map_add(viewer, "bad", false);
     ds_list_add(viewers, viewer);
 }
-chatting_regen_delay_var = 8;
+chatting_regen_delay_var = 0.5;
 chatting_regen_delay = 75;
 chatting_regen = 0;
 chatting_life = 3600;
@@ -83,7 +83,7 @@ top = 160;
 if (chatting_regen &gt; 0)
     chatting_regen--;
 else {
-    chatting_regen = chatting_regen_delay+irandom_range(-chatting_regen_delay/chatting_regen_delay_var,chatting_regen_delay/chatting_regen_delay_var);
+    chatting_regen = chatting_regen_delay+irandom_range(-chatting_regen_delay*chatting_regen_delay_var,chatting_regen_delay*chatting_regen_delay_var);
     
     var empty_list = ds_list_create();
     for(var i=0; i&lt;viewer_amount; i++){
@@ -183,7 +183,7 @@ if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*4-18, 23+18, roo
     chatting_regen_delay += (up-down) * 5;
 }
 if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*3-18, 23+18, room_height-28-20*3) {
-    chatting_regen_delay_var -= (up-down);
+    chatting_regen_delay_var += (up-down) * 0.1;
 }
 if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*2-18, 23+18, room_height-28-20*2) {
     chatting_life += (up-down) * 5;
@@ -226,7 +226,7 @@ draw_text(25, 25, "잡은 악플러 : "+string(block_bad)+"
 
 draw_set_valign(fa_bottom)
 draw_text(45, room_height-25, "채팅 생성간격 : "+string(chatting_regen_delay/room_speed)+"초
-채팅 생성간격 변화범위 : "+string(100/chatting_regen_delay_var)+"%
+채팅 생성간격 변화범위 : "+string(floor(chatting_regen_delay_var*100))+"%
 채팅 유지시간 : "+string(chatting_life/room_speed)+"초
 악플 확률 : "+string(chatting_bad_ratio)+"%
 악플 확률 보정 최대 횟수 : (100÷악플 확률×"+string(chatting_bad_ratio_adjust_max)+") ("+string(100/chatting_bad_ratio*chatting_bad_ratio_adjust_max)+"회)");
