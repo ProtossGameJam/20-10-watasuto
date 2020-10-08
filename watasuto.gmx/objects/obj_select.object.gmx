@@ -28,7 +28,7 @@
             <string>minigames[0] = '용건만 간단히';
 minigameRooms[0] = r_select; // TODO
 minigames[1] = '실시간 채팅 관리';
-minigameRooms[1] = r_select; // TODO
+minigameRooms[1] = r_chatting_game; // TODO
 
 selected = 0;
 </string>
