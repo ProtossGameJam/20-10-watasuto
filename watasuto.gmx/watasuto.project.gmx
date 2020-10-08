@@ -3,10 +3,19 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
+  <datafiles number="1" name="datafiles"/>
   <NewExtensions/>
   <sounds name="sound"/>
-  <sprites name="sprites"/>
-  <backgrounds name="background"/>
+  <sprites name="sprites">
+    <sprite>sprites\spr_cm_icon</sprite>
+    <sprite>sprites\spr_play_background</sprite>
+    <sprite>sprites\spr_cm_background</sprite>
+    <sprite>sprites\sprite3_Playscreen_BG</sprite>
+    <sprite>sprites\spr_play_titlebar</sprite>
+  </sprites>
+  <backgrounds name="background">
+    <background>background\background0</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\watasuto_init.gml</script>
@@ -20,7 +29,6 @@
     <object>objects\obj_story</object>
     <object>objects\obj_main</object>
     <object>objects\obj_select</object>
-    <object>objects\o_game_chat</object>
     <object>objects\obj_callbox</object>
   </objects>
   <rooms name="rooms">
@@ -28,7 +36,6 @@
     <room>rooms\r_story</room>
     <room>rooms\r_main</room>
     <room>rooms\r_select</room>
-    <room>rooms\r_chatting_game</room>
     <room>rooms\r_callbox_game</room>
   </rooms>
   <help>
