@@ -21,6 +21,7 @@
     <object>objects\obj_main</object>
     <object>objects\obj_select</object>
     <object>objects\o_game_chat</object>
+    <object>objects\obj_callbox</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_watasuto_title</room>
@@ -28,6 +29,7 @@
     <room>rooms\r_main</room>
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>
+    <room>rooms\r_callbox_game</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
