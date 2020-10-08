@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,12 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>randomize();
-
-correct = 0;
-wrong = 0;
-for(var i = 0; i &lt; 3; i++)
-   next[i] = irandom_range(0, 3);
+            <string>successLabel = '성공';
+failureLabel = '실패';
 </string>
           </argument>
         </arguments>
@@ -53,26 +49,10 @@ for(var i = 0; i &lt; 3; i++)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var input, inputAll = 0;
-for(var i = 0; i &lt; 4; i++) {
-   input[i] = keyboard_check_pressed(vk_left + i);
-   inputAll |= input[i];
+            <string>if(keyboard_check_pressed(vk_enter)) {
+   room_goto(r_main);
+   instance_destroy();
 }
-
-if(inputAll)
-   if(input[next[0]]) {
-      correct++;
-      next[0] = next[1];
-      next[1] = next[2];
-      next[2] = irandom_range(0, 3);
-   } else {
-      /*
-      if(++wrong == 3) {
-         // game over logic...
-      }
-      */
-      wrong++;
-   }
 </string>
           </argument>
         </arguments>
@@ -95,25 +75,39 @@ if(inputAll)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(sprite3_Playscreen_BG, 0, 0, 0);
+            <string>draw_set_colour($000000);
+draw_set_alpha(1);
+draw_set_font(f_nanumgothic);
+draw_set_halign(fa_left);
+draw_set_valign(fa_top);
 
-draw_sprite(spr_callbox_grass, 0, 1206, 689);
-draw_sprite(spr_callbox_character, 0, 106, 689);
-draw_sprite(spr_callbox_callbox, 0, 74, 689);
+draw_text(8, 8, gameName);
+/*
+if(resultSpr != -1)
+   draw_sprite(resultSpr, 0, 0, 0);
+*/
+draw_text(8, 28, resultText);
 
-draw_sprite(spr_callbox_arrow, next[0], 780, 320);
-draw_sprite_ext(
-   spr_callbox_arrow, next[1] + 4,
-   1027, 320,
-   0.6, 0.6, 0,
-   $ffffff, 1
-);
-draw_sprite_ext(
-   spr_callbox_arrow, next[2] + 4,
-   1177, 320,
-   0.4, 0.4, 0,
-   $ffffff, 1
-);
+draw_set_colour($ff8000);
+draw_text(8, 68, successLabel + ': ' + string(successCount));
+draw_set_colour($8080ff);
+draw_text(8, 88, failureLabel + ': ' + string(failureCount));
+draw_set_colour($00c0c0);
+draw_text(8, 108, '스코어: ' + string(finalScore));
+
+var rewardText;
+if(likes) {
+   rewardText = '좋아요 ' + string(likes) + '개';
+   if(dislikes)
+      rewardText += ', 안티팬 ' + string(dislikes) + '명';
+} else if(dislikes)
+   rewardText += '안티팬 ' + string(dislikes) + '명';
+else
+   rewardText = '없음';
+draw_set_colour($000000);
+draw_text(8, 148, rewardText);
+
+draw_text(8, 188, '돌아가기 (엔터)');
 </string>
           </argument>
         </arguments>

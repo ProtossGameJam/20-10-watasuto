@@ -7,10 +7,8 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_cm_icon</sprite>
+    <sprite>sprites\spr_unused_background</sprite>
     <sprite>sprites\spr_play_background</sprite>
-    <sprite>sprites\spr_cm_background</sprite>
-    <sprite>sprites\sprite3_Playscreen_BG</sprite>
     <sprite>sprites\spr_play_titlebar</sprite>
     <sprites name="callbox">
       <sprite>sprites\spr_callbox_arrow</sprite>
@@ -18,25 +16,31 @@
       <sprite>sprites\spr_callbox_character</sprite>
       <sprite>sprites\spr_callbox_grass</sprite>
     </sprites>
+    <sprites name="chatting">
+      <sprite>sprites\spr_cm_background</sprite>
+      <sprite>sprites\spr_cm_icon</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
-    <background>background\background0</background>
+    <background>background\bg_loop</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\watasuto_init.gml</script>
+    <script>scripts\watasuto_gameover.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
     <font>fonts\f_murukmuruk</font>
   </fonts>
   <objects name="objects">
-    <object>objects\obj_watasuto_title</object>
-    <object>objects\obj_story</object>
-    <object>objects\obj_main</object>
-    <object>objects\obj_select</object>
+    <object>objects\o_watasuto_title</object>
+    <object>objects\o_story</object>
+    <object>objects\o_main</object>
+    <object>objects\o_select</object>
     <object>objects\o_game_chat</object>
-    <object>objects\obj_game_callbox</object>
+    <object>objects\o_game_callbox</object>
+    <object>objects\o_result</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_watasuto_title</room>
@@ -45,6 +49,7 @@
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>
     <room>rooms\r_callbox_game</room>
+    <room>rooms\r_result</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
