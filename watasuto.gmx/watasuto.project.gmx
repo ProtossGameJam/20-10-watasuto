@@ -17,6 +17,7 @@
       <sprite>sprites\spr_callbox_grass</sprite>
     </sprites>
     <sprites name="chatting">
+      <sprite>sprites\spr_cm_manager</sprite>
       <sprite>sprites\spr_cm_background</sprite>
       <sprite>sprites\spr_cm_icon</sprite>
     </sprites>

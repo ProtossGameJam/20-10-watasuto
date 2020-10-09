@@ -32,7 +32,7 @@ block_bad = 0;
 
 viewers = ds_list_create();
 
-viewer_amount = 9;
+viewer_amount = 11;
 viewer_linebreak = 3;
 for(var i=0; i&lt;viewer_amount; i++){
     var viewer = ds_map_create();
@@ -40,6 +40,7 @@ for(var i=0; i&lt;viewer_amount; i++){
     ds_map_add(viewer, "chat", "채팅채팅채팅채팅크크크크");
     ds_map_add(viewer, "life", 0);
     ds_map_add(viewer, "checked", false);
+    ds_map_add(viewer, "icon", 1);
     ds_map_add(viewer, "bad", false);
     ds_list_add(viewers, viewer);
 }
@@ -51,11 +52,11 @@ chatting_bad_ratio = 10;
 chatting_bad_ratio_adjust = 0;
 chatting_bad_ratio_adjust_max = 2;
 
-viewer_width = 320;
-viewer_height = 36;
+viewer_width = 340;
+viewer_height = 39;
 
-left = 620;
-top = 160; 
+left = 474;
+top = 152; 
 </string>
           </argument>
         </arguments>
@@ -102,6 +103,7 @@ else {
             viewer[? "chat"] = viewer_next[? "chat"];
             viewer[? "life"] = viewer_next[? "life"];
             viewer[? "checked"] = viewer_next[? "checked"];
+            viewer[? "icon"] = viewer_next[? "icon"];
             viewer[? "bad"] = viewer_next[? "bad"];
         }
         var selected = viewers[| viewer_amount-1];
@@ -115,9 +117,11 @@ else {
         if (chatting_bad_ratio_adjust_max &gt; 0)
             chatting_bad_ratio_adjust +=  (100-chatting_bad_ratio) / (100/chatting_bad_ratio*chatting_bad_ratio_adjust_max);
         selected[? "bad"] = false;
-    }else{
+        selected[? "icon"] = irandom_range(1,2);
+    }else {
         chatting_bad_ratio_adjust = 0;
         selected[? "bad"] = true;
+        selected[? "icon"] = 0;
     }
     
     selected[? "name"] = choose("무이", "잇창명", "산소", "암흑마왕 2호", "착한유저", "못된유저");
@@ -162,7 +166,7 @@ for(var i=0; i&lt;viewer_amount; i++){
     var viewer = viewers[| i];
     
     if (click &amp;&amp; viewer[? "life"] &gt; 0 &amp;&amp; viewer[? "checked"] == false)
-        if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+22) {
+        if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+viewer_height-6) {
             if (viewer[? "bad"]) block_bad++;
             else block_wrong++;
             
@@ -242,7 +246,9 @@ background_vspeed[0] = 0.2;
             <kind>1</kind>
             <string>/// background draw
 
+draw_set_alpha(1);
 draw_sprite(spr_cm_background, 0, 64, 51);
+draw_sprite(spr_cm_manager, 0, room_width - 64 - 9, room_height - 29)
 </string>
           </argument>
         </arguments>
@@ -316,23 +322,29 @@ for(var i=0; i&lt;viewer_amount; i++){
     var viewer = viewers[| i];
     
     if (viewer[? "life"] &gt; 0){
-    
-        if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+22) {
-            draw_set_color(make_color_hsv(0,0,220));
-            draw_rectangle(left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+22, 0);
-        }
+        
+        
+        
         
         if (viewer[? "checked"]) draw_set_alpha(0.4);
         else draw_set_alpha(1);
+        
+        // hover
+        if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+viewer_height-6) {
+            draw_set_color($f1f1f1);
+            draw_rectangle(left-7, top+viewer_height*i-7, left+viewer_width, top+viewer_height*i+viewer_height - 5, 0);
+        }
+        
+        draw_sprite_ext(spr_cm_icon, viewer[? "icon"], left, top + viewer_height*i-1, 0.5, 0.5, 0, c_white, draw_get_alpha());
         
         if (viewer[? "bad"]) draw_set_color(c_red);
         else draw_set_color(c_dkgray);
         
         draw_set_font(f_nanumgothic);
         draw_set_valign(fa_top)
-        draw_text(left, top + viewer_height*i, viewer[? "name"]);
+        draw_text(left + 35, top + viewer_height*i + 4, viewer[? "name"]);
         draw_set_color(c_gray);
-        draw_text(left + string_width(viewer[? "name"]) + 5, top + viewer_height*i, viewer[? "chat"]);
+        draw_text(left + 35 + string_width(viewer[? "name"]) + 5, top + viewer_height*i + 4, viewer[? "chat"]);
     }
     
 }
