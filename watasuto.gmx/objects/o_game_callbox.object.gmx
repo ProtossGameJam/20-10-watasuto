@@ -78,6 +78,30 @@ if(inputAll)
         </arguments>
       </action>
     </event>
+    <event eventtype="7" enumb="4">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>background_hspeed[1] = -0.2;
+background_vspeed[1] = 0.2;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -95,7 +119,8 @@ if(inputAll)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(spr_play_background, 0, 0, 0);
+            <string>draw_sprite(spr_game_box, 0, 0, 0);
+draw_sprite(spr_game_play, 0, 0, 0);
 
 draw_sprite(spr_callbox_grass, 0, 1206, 689);
 draw_sprite(spr_callbox_character, 0, 106, 689);

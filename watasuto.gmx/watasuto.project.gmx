@@ -7,9 +7,11 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_unused_background</sprite>
-    <sprite>sprites\spr_play_background</sprite>
-    <sprite>sprites\spr_play_titlebar</sprite>
+    <sprites name="minigame">
+      <sprite>sprites\spr_game_box</sprite>
+      <sprite>sprites\spr_game_play</sprite>
+      <sprite>sprites\spr_game_titlebar</sprite>
+    </sprites>
     <sprites name="callbox">
       <sprite>sprites\spr_callbox_arrow</sprite>
       <sprite>sprites\spr_callbox_callbox</sprite>
@@ -24,6 +26,7 @@
   </sprites>
   <backgrounds name="background">
     <background>background\bg_loop</background>
+    <background>background\bg_base</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
