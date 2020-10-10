@@ -29,6 +29,10 @@
 
 correct = 0;
 wrong = 0;
+shield = 3;
+time = 300;
+timeMax = 300;
+timeMp = 1;
 for(var i = 0; i &lt; 3; i++)
    next[i] = irandom_range(0, 3);
 </string>
@@ -54,25 +58,63 @@ for(var i = 0; i &lt; 3; i++)
           <argument>
             <kind>1</kind>
             <string>var input, inputAll = 0;
+
 for(var i = 0; i &lt; 4; i++) {
    input[i] = keyboard_check_pressed(vk_left + i);
    inputAll |= input[i];
 }
 
+time -= timeMp;
 if(inputAll)
    if(input[next[0]]) {
       correct++;
-      next[0] = next[1];
-      next[1] = next[2];
-      next[2] = irandom_range(0, 3);
+      time += 60;
+      timeMp += 0.05;
+      event_user(0);
    } else {
-      /*
-      if(++wrong == 3) {
-         // game over logic...
-      }
-      */
       wrong++;
+      if(shield) {
+         shield--;
+         event_user(0);
+      } else
+         time -= 60*timeMp;
    }
+
+timeMax = max(timeMax, time);
+if(time &lt;= 0)
+   watasuto_gameover(
+      '용건만 간단히',
+      -1, 'adsfasdfasfda',
+      correct, wrong, 0,
+      0, 0
+   );
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// shift by one
+
+next[0] = next[1];
+next[1] = next[2];
+next[2] = irandom_range(0, 3);
 </string>
           </argument>
         </arguments>
@@ -139,6 +181,10 @@ draw_sprite_ext(
    0.4, 0.4, 0,
    $ffffff, 1
 );
+
+draw_set_colour($0040ff);
+draw_set_alpha(1);
+draw_rectangle(74, 669, 74 + 1132*time/timeMax, 688, false);
 </string>
           </argument>
         </arguments>

@@ -47,12 +47,12 @@
     <object>objects\o_result</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\r_callbox_game</room>
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_main</room>
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>
-    <room>rooms\r_callbox_game</room>
     <room>rooms\r_result</room>
   </rooms>
   <help>
