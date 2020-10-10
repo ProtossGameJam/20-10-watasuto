@@ -15,8 +15,8 @@
     </sprites>
     <sprites name="minigame">
       <sprite>sprites\spr_game_box</sprite>
+      <sprite>sprites\spr_game_title_bar</sprite>
       <sprite>sprites\spr_game_play</sprite>
-      <sprite>sprites\spr_game_titlebar</sprite>
       <sprites name="chatting">
         <sprite>sprites\spr_cm_manager</sprite>
         <sprite>sprites\spr_cm_background</sprite>
@@ -29,11 +29,19 @@
         <sprite>sprites\spr_callbox_grass</sprite>
       </sprites>
     </sprites>
+    <sprites name="result">
+      <sprite>sprites\spr_result_title</sprite>
+      <sprite>sprites\spr_result_image</sprite>
+      <sprite>sprites\spr_result_image_text</sprite>
+      <sprite>sprites\spr_result_score</sprite>
+      <sprite>sprites\spr_result_reward</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_title</background>
-    <background>background\bg_loop</background>
     <background>background\bg_base</background>
+    <background>background\bg_loop</background>
+    <background>background\bg_result</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -43,6 +51,8 @@
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
     <font>fonts\f_murukmuruk</font>
+    <font>fonts\f_seoulnamsan_small</font>
+    <font>fonts\f_seoulnamsan_big</font>
   </fonts>
   <objects name="objects">
     <object>objects\o_watasuto_title</object>

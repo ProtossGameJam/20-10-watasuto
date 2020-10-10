@@ -8,30 +8,6 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="0" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>successLabel = '성공';
-failureLabel = '실패';
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -75,17 +51,15 @@ failureLabel = '실패';
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_colour($000000);
+            <string>/*draw_set_colour($000000);
 draw_set_alpha(1);
 draw_set_font(f_nanumgothic);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 draw_text(8, 8, gameName);
-/*
-if(resultSpr != -1)
-   draw_sprite(resultSpr, 0, 0, 0);
-*/
+//if(resultSpr != -1)
+//   draw_sprite(resultSpr, 0, 0, 0);
 draw_text(8, 28, resultText);
 
 draw_set_colour($ff8000);
@@ -107,7 +81,29 @@ else
 draw_set_colour($000000);
 draw_text(8, 148, rewardText);
 
-draw_text(8, 188, '돌아가기 (엔터)');
+draw_text(8, 188, '돌아가기 (엔터)');*/
+
+draw_sprite(spr_result_title, 0, 30, 30);
+draw_sprite(spr_result_image, 0, 107, 175);
+if(resultSpr != -1)
+   draw_sprite(resultSpr, 0, 147, 186);
+draw_sprite(spr_result_image_text, 0, 88, 602);
+draw_sprite(spr_result_score, 0, 641, 196);
+draw_sprite(spr_result_reward, 0, 661, 572);
+
+draw_set_colour($000000);
+draw_set_alpha(1);
+draw_set_font(f_seoulnamsan_small);
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
+draw_text(354, 645, resultText);
+draw_set_font(f_seoulnamsan_big);
+draw_set_colour($f0ff8a);
+draw_text(1016, 246, successCount);
+draw_set_colour($7171ff);
+draw_text(1016, 363, failureCount);
+draw_set_colour($5bfcff);
+draw_text(1016, 487, finalScore);
 </string>
           </argument>
         </arguments>
