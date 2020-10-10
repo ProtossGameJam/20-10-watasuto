@@ -29,7 +29,7 @@
 
 correct = 0;
 wrong = 0;
-shield = 3;
+shield = 2;
 time = 300;
 timeMax = 300;
 timeMp = 1;

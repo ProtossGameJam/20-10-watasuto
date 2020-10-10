@@ -87,15 +87,15 @@ lineText[1] = '뭐 내가 그런 걸 할 수 있을 리가 없지만.';
 lineText[2] = '.....';
 lineText[3] = '하지만 그 꿈을 이뤄 줄 수 있는 이세계로 온다면 어떻게 될까요~~~?';
 
-draw_set_color($ffffff);
+draw_set_color($000000);
 draw_set_alpha(1);
 draw_set_font(f_nanumgothic);
 draw_set_halign(fa_left);
-draw_set_valign(fa_bottom);
+draw_set_valign(fa_top);
 
 if(line &lt; 4) {
-   draw_text(8, room_height - 48, '(임시 틀이니까 말풍선은 대충 할게요)');
-   draw_text(8, room_height - 8, lineText[line]);
+   draw_sprite(spr_cutscene_text, 0, 76, room_height - 76);
+   draw_text(76 + 24, room_height - 315 + 24, lineText[line]);
 }
 </string>
           </argument>

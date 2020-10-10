@@ -7,24 +7,31 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
+    <sprites name="title">
+      <sprite>sprites\spr_title_anykey</sprite>
+    </sprites>
+    <sprites name="cutscene">
+      <sprite>sprites\spr_cutscene_text</sprite>
+    </sprites>
     <sprites name="minigame">
       <sprite>sprites\spr_game_box</sprite>
       <sprite>sprites\spr_game_play</sprite>
       <sprite>sprites\spr_game_titlebar</sprite>
-    </sprites>
-    <sprites name="callbox">
-      <sprite>sprites\spr_callbox_arrow</sprite>
-      <sprite>sprites\spr_callbox_callbox</sprite>
-      <sprite>sprites\spr_callbox_character</sprite>
-      <sprite>sprites\spr_callbox_grass</sprite>
-    </sprites>
-    <sprites name="chatting">
-      <sprite>sprites\spr_cm_manager</sprite>
-      <sprite>sprites\spr_cm_background</sprite>
-      <sprite>sprites\spr_cm_icon</sprite>
+      <sprites name="chatting">
+        <sprite>sprites\spr_cm_manager</sprite>
+        <sprite>sprites\spr_cm_background</sprite>
+        <sprite>sprites\spr_cm_icon</sprite>
+      </sprites>
+      <sprites name="callbox">
+        <sprite>sprites\spr_callbox_arrow</sprite>
+        <sprite>sprites\spr_callbox_callbox</sprite>
+        <sprite>sprites\spr_callbox_character</sprite>
+        <sprite>sprites\spr_callbox_grass</sprite>
+      </sprites>
     </sprites>
   </sprites>
   <backgrounds name="background">
+    <background>background\bg_title</background>
     <background>background\bg_loop</background>
     <background>background\bg_base</background>
   </backgrounds>
@@ -47,12 +54,12 @@
     <object>objects\o_result</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\r_callbox_game</room>
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_main</room>
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>
+    <room>rooms\r_callbox_game</room>
     <room>rooms\r_result</room>
   </rooms>
   <help>

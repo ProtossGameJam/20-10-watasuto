@@ -27,8 +27,9 @@
             <kind>1</kind>
             <string>global.storyMode = false;
 
-titleState = 0;
+// titleState = 0;
 // 0 = 최초 상태, 1 = 새 게임/불러오기 (미구현), 2 = 스토리/무한모드 선택
+// 나중에 다시 구현해야
 </string>
           </argument>
         </arguments>
@@ -51,7 +52,7 @@ titleState = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var
+            <string>/*var
    any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey),
    left = keyboard_check_pressed(vk_left), right = keyboard_check_pressed(vk_right);
 
@@ -73,8 +74,10 @@ switch(titleState) {
          room_goto(r_story);
       }
    break;
-}
+}*/
 
+if(keyboard_check_pressed(vk_anykey))
+   room_goto(r_story);
 </string>
           </argument>
         </arguments>
@@ -97,7 +100,7 @@ switch(titleState) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color($000000);
+            <string>/*draw_set_color($000000);
 draw_set_alpha(1);
 draw_set_font(f_nanumgothic);
 draw_set_halign(fa_left);
@@ -116,7 +119,9 @@ switch(titleState) {
       draw_text(8, 48, "아직 임시 화면이니까 좌우 방향키로 둘 중에 하나 골라주세요");
       draw_text(8, 68, "← 스토리 모드 / 무한 모드 →");
    break;
-}
+}*/
+
+draw_sprite(spr_title_anykey, 0, room_width - 32, room_height - 32);
 </string>
           </argument>
         </arguments>
