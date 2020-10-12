@@ -27,6 +27,7 @@
         <sprite>sprites\spr_callbox_callbox</sprite>
         <sprite>sprites\spr_callbox_character</sprite>
         <sprite>sprites\spr_callbox_grass</sprite>
+        <sprite>sprites\spr_callbox_burst</sprite>
       </sprites>
     </sprites>
     <sprites name="result">
@@ -61,6 +62,7 @@
     <object>objects\o_select</object>
     <object>objects\o_game_chat</object>
     <object>objects\o_game_callbox</object>
+    <object>objects\o_game_callbox_burst</object>
     <object>objects\o_result</object>
   </objects>
   <rooms name="rooms">
