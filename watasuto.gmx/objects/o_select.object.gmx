@@ -31,6 +31,9 @@ minigames[1] = '실시간 채팅 관리';
 minigameRooms[1] = r_chatting_game;
 
 selected = 0;
+
+dx = room_width / 2;
+dy = 2;
 </string>
           </argument>
         </arguments>
@@ -69,6 +72,39 @@ if(keyboard_check_pressed(vk_escape))
       </action>
     </event>
     <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_sprite(spr_schedule, 0, dx, dy);
+
+draw_sprite_ext(spr_stage_explain, 0, dx - 195 + 128, dy + 225 + 62, 1, 42, 0, c_white, 1);
+draw_set_font(f_namsan_general);
+draw_set_halign(fa_left);
+draw_set_color($212121);
+draw_text(dx - 195 + 128 + 10, dy + 225 + 62 + 10, "대충 설명설명설명 이러이러해서 저러저러");
+
+draw_window(spr_stage_title, 0, dx - 195 + 128 - 10, dy + 225 + 20, 280, 42);
+draw_set_color($efefef);
+draw_text_outline(dx - 195 + 128 + 10, dy + 225 + 20 + 10, minigames[0], 2, $94941c, 4);
+
+draw_window(spr_stage_thumb, 0, dx - 195, dy + 225, 128, 128);
+</string>
+          </argument>
+        </arguments>
+      </action>
       <action>
         <libid>1</libid>
         <id>603</id>

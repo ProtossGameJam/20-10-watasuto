@@ -7,9 +7,11 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spr_unused_background</sprite>
-    <sprite>sprites\spr_play_background</sprite>
-    <sprite>sprites\spr_play_titlebar</sprite>
+    <sprites name="game general">
+      <sprite>sprites\spr_play_background</sprite>
+      <sprite>sprites\spr_play_titlebar</sprite>
+      <sprite>sprites\spr_unused_background</sprite>
+    </sprites>
     <sprites name="callbox">
       <sprite>sprites\spr_callbox_arrow</sprite>
       <sprite>sprites\spr_callbox_callbox</sprite>
@@ -21,18 +23,37 @@
       <sprite>sprites\spr_cm_background</sprite>
       <sprite>sprites\spr_cm_icon</sprite>
     </sprites>
+    <sprites name="main">
+      <sprite>sprites\spr_main_room</sprite>
+      <sprite>sprites\spr_twowitch_status</sprite>
+      <sprite>sprites\spr_main_date</sprite>
+      <sprite>sprites\spr_main_schedule</sprite>
+      <sprite>sprites\spr_textbar</sprite>
+    </sprites>
+    <sprites name="gameselect">
+      <sprite>sprites\spr_schedule</sprite>
+      <sprite>sprites\spr_stage_title</sprite>
+      <sprite>sprites\spr_stage_thumb</sprite>
+      <sprite>sprites\spr_stage_explain</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_loop</background>
+    <background>background\bg_main</background>
+    <background>background\bg_game_select</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\watasuto_init.gml</script>
     <script>scripts\watasuto_gameover.gml</script>
+    <script>scripts\draw_window.gml</script>
+    <script>scripts\draw_text_outline.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
     <font>fonts\f_murukmuruk</font>
+    <font>fonts\f_namsan_header</font>
+    <font>fonts\f_namsan_general</font>
   </fonts>
   <objects name="objects">
     <object>objects\o_watasuto_title</object>
