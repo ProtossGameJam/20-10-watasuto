@@ -9,9 +9,11 @@
   <sprites name="sprites">
     <sprites name="title">
       <sprite>sprites\spr_title_anykey</sprite>
+      <sprite>sprites\spr_title_mode</sprite>
     </sprites>
     <sprites name="cutscene">
       <sprite>sprites\spr_cutscene_text</sprite>
+      <sprite>sprites\spr_cutscene_continue</sprite>
     </sprites>
     <sprites name="minigame">
       <sprite>sprites\spr_game_box</sprite>

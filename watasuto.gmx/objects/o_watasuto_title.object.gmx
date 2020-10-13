@@ -27,9 +27,8 @@
             <kind>1</kind>
             <string>global.storyMode = false;
 
-// titleState = 0;
+titleState = 0;
 // 0 = 최초 상태, 1 = 새 게임/불러오기 (미구현), 2 = 스토리/무한모드 선택
-// 나중에 다시 구현해야
 </string>
           </argument>
         </arguments>
@@ -52,32 +51,35 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*var
-   any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey),
-   left = keyboard_check_pressed(vk_left), right = keyboard_check_pressed(vk_right);
+            <string>var
+   any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)/*,
+   left = keyboard_check_pressed(vk_left), right = keyboard_check_pressed(vk_right)*/;
 
 switch(titleState) {
    case 0:
       if(any)
-         titleState = 1;
-   break;
-   case 1:
-      if(left || right)
          titleState = 2;
    break;
+   /*case 1:
+      if(left || right)
+         titleState = 2;
+   break;*/
    case 2:
-      if(left || right) {
-         if(left)
-            global.storyMode = false;
-         else
-            global.storyMode = true;
+      if(mouse_check_button_pressed(mb_left)) {
+         var selected = -1;
+         if(mouse_y &gt;= 29 &amp;&amp; mouse_y &lt; 690)
+            if(mouse_x &gt;= 53 &amp;&amp; mouse_x &lt; 614)
+               selected = 0;
+            else if(mouse_x &gt;= 666 &amp;&amp; mouse_x &lt; 1227)
+               selected = 1;
+         
+         if(selected == -1)
+            break;
+         global.storyMode = selected;
          room_goto(r_story);
       }
    break;
-}*/
-
-if(keyboard_check_pressed(vk_anykey))
-   room_goto(r_story);
+}
 </string>
           </argument>
         </arguments>
@@ -100,28 +102,19 @@ if(keyboard_check_pressed(vk_anykey))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*draw_set_color($000000);
-draw_set_alpha(1);
-draw_set_font(f_nanumgothic);
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
-
-draw_text(8, 8, "와타스토 임시 시작 화면!");
-switch(titleState) {
+            <string>switch(titleState) {
    case 0:
-      draw_text(8, 48, "PRESS ANY KEY");
-   break;
-   case 1:
-      draw_text(8, 48, "아직 임시 화면이니까 좌우 방향키로 둘 중에 하나 골라주세요");
-      draw_text(8, 68, "← 새 게임 / 불러오기 (미구현) →");
+      draw_sprite(spr_title_anykey, 0, room_width - 32, room_height - 32);
    break;
    case 2:
-      draw_text(8, 48, "아직 임시 화면이니까 좌우 방향키로 둘 중에 하나 골라주세요");
-      draw_text(8, 68, "← 스토리 모드 / 무한 모드 →");
+      draw_set_colour($836fff);
+      draw_set_alpha(0.75);
+      draw_rectangle(0, 0, room_width - 1, room_height - 1, false);
+      draw_set_alpha(1);
+      draw_sprite(spr_title_mode, 0, 53, 29);
+      draw_sprite(spr_title_mode, 1, 666, 29);
    break;
-}*/
-
-draw_sprite(spr_title_anykey, 0, room_width - 32, room_height - 32);
+}
 </string>
           </argument>
         </arguments>

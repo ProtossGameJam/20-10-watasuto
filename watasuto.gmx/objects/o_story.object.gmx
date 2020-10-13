@@ -25,7 +25,14 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>line = 0;
+            <string>lineText = array_create(4);
+lineText[0] = '나도 스트리머... 해볼까...';
+lineText[1] = '뭐 내가 그런 걸 할 수 있을 리가 없지만.';
+lineText[2] = '.....';
+lineText[3] = '하지만 그 꿈을 이뤄 줄 수 있는 이세계로 온다면 어떻게 될까요~~~?';
+
+line = 0;
+char = 0;
 </string>
           </argument>
         </arguments>
@@ -48,17 +55,29 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var next =
-   mouse_check_button_pressed(mb_left) ||
-   keyboard_check_pressed(vk_space) ||
-   keyboard_check_pressed(vk_enter);
+            <string>var
+   next =
+      mouse_check_button_pressed(mb_left) ||
+      keyboard_check_pressed(vk_space) ||
+      keyboard_check_pressed(vk_enter),
+   len = string_length(lineText[line]);
 
-if(next)
-   if(++line == 4) {
-      global.name = get_string('스트리머 이름 입력', '뀨');
-      watasuto_init();
-      room_goto(r_main);
+if(next) {
+   if(char &lt; len)
+      char = len;
+   else {
+      line++;
+      char = 0;
+      if(line == 4) {
+         global.name = get_string('스트리머 이름 입력', '뀨');
+         watasuto_init();
+         room_goto(r_main);
+      }
    }
+}
+
+if(char != len)
+   char = min(len, char + 0.75);
 </string>
           </argument>
         </arguments>
@@ -81,11 +100,7 @@ if(next)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var lineText;
-lineText[0] = '나도 스트리머... 해볼까...';
-lineText[1] = '뭐 내가 그런 걸 할 수 있을 리가 없지만.';
-lineText[2] = '.....';
-lineText[3] = '하지만 그 꿈을 이뤄 줄 수 있는 이세계로 온다면 어떻게 될까요~~~?';
+            <string>var len = 0;
 
 draw_set_color($000000);
 draw_set_alpha(1);
@@ -94,8 +109,14 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 if(line &lt; 4) {
+   len = string_length(lineText[line]);
    draw_sprite(spr_cutscene_text, 0, 76, room_height - 76);
-   draw_text(76 + 24, room_height - 315 + 24, lineText[line]);
+   draw_text(
+      100, room_height - 291,
+      string_copy(lineText[line], 1, floor(min(len, char + 1)))
+   );
+   if(char == len)
+      draw_sprite(spr_cutscene_continue, 0, room_width - 100, room_height - 100);
 }
 </string>
           </argument>
