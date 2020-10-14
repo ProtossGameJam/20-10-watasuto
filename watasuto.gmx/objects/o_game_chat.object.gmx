@@ -79,6 +79,68 @@ top = 152;
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// mouse action
+
+var click = device_mouse_check_button_pressed(0,mb_left);
+var _mouse_x = device_mouse_x(0);
+var _mouse_y = device_mouse_y(0);
+
+for(var i=0; i&lt;viewer_amount; i++){
+    var viewer = viewers[| i];
+    
+    if (click &amp;&amp; viewer[? "life"] &gt; 0 &amp;&amp; viewer[? "checked"] == false)
+        if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+viewer_height-6) {
+            if (viewer[? "bad"]) block_bad++;
+            else block_wrong++;
+            
+            viewer[? "checked"] = true;
+        }
+        
+    if (viewer[? "life"] &gt; 0){
+        if (viewer[? "bad"]) draw_set_color(c_red);
+        else draw_set_color(c_gray);
+        draw_rectangle(40+left+viewer_width*(i mod viewer_linebreak), 40+top+viewer_height*floor(i/viewer_linebreak), -40+left+viewer_width*(i mod viewer_linebreak)+viewer_width, -40+top+viewer_height*floor(i/viewer_linebreak)+viewer_height, 1);
+    }
+}
+
+var up = mouse_wheel_up() | 0;
+var down = mouse_wheel_down() | 0;
+
+if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*4-22, 23+22, room_height-28-24*4){
+    chatting_regen_delay += (up-down) * 5;
+}
+if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*3-22, 23+22, room_height-28-24*3) {
+    chatting_regen_delay_var += (up-down) * 0.1;
+}
+if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*2-22, 23+22, room_height-28-24*2) {
+    chatting_life += (up-down) * 5;
+}
+if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*1-22, 23+22, room_height-28-24*1) {
+    chatting_bad_ratio += (up-down) * 5;
+}
+if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*0-22, 23+22, room_height-28-24*0) {
+    chatting_bad_ratio_adjust_max += (up-down);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>/// chatting life cycle
 
 if (chatting_regen &gt; 0)
@@ -135,68 +197,6 @@ for(var i=0; i&lt;viewer_amount; i++){
     var viewer = viewers[| i];
     if (viewer[? "life"] &gt; 0)
         viewer[? "life"]--;
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// mouse action
-
-var click = device_mouse_check_button_pressed(0,mb_left);
-var _mouse_x = device_mouse_x(0);
-var _mouse_y = device_mouse_y(0);
-
-for(var i=0; i&lt;viewer_amount; i++){
-    var viewer = viewers[| i];
-    
-    if (click &amp;&amp; viewer[? "life"] &gt; 0 &amp;&amp; viewer[? "checked"] == false)
-        if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+viewer_height-6) {
-            if (viewer[? "bad"]) block_bad++;
-            else block_wrong++;
-            
-            viewer[? "checked"] = true;
-        }
-        
-    if (viewer[? "life"] &gt; 0){
-        if (viewer[? "bad"]) draw_set_color(c_red);
-        else draw_set_color(c_gray);
-        draw_rectangle(40+left+viewer_width*(i mod viewer_linebreak), 40+top+viewer_height*floor(i/viewer_linebreak), -40+left+viewer_width*(i mod viewer_linebreak)+viewer_width, -40+top+viewer_height*floor(i/viewer_linebreak)+viewer_height, 1);
-    }
-}
-
-var up = mouse_wheel_up() | 0;
-var down = mouse_wheel_down() | 0;
-
-if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*4-18, 23+18, room_height-28-20*4){
-    chatting_regen_delay += (up-down) * 5;
-}
-if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*3-18, 23+18, room_height-28-20*3) {
-    chatting_regen_delay_var += (up-down) * 0.1;
-}
-if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*2-18, 23+18, room_height-28-20*2) {
-    chatting_life += (up-down) * 5;
-}
-if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*1-18, 23+18, room_height-28-20*1) {
-    chatting_bad_ratio += (up-down) * 5;
-}
-if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*0-18, 23+18, room_height-28-20*0) {
-    chatting_bad_ratio_adjust_max += (up-down);
 }
 </string>
           </argument>
@@ -286,10 +286,10 @@ draw_text(45, room_height-25, "채팅 생성간격 : "+string(chatting_regen_del
 
 for(var i=0; i&lt;5; i++){
     draw_set_color(c_dkgray)
-    draw_rectangle(23, room_height-28-20*i, 23+18, room_height-28-20*i-18,1)
-    if point_in_rectangle(device_mouse_x(0), device_mouse_y(0), 23, room_height-28-20*i-18, 23+18, room_height-28-20*i) {
+    draw_rectangle(23, room_height-28-24*i, 23+22, room_height-28-24*i-22,1)
+    if point_in_rectangle(device_mouse_x(0), device_mouse_y(0), 23, room_height-28-24*i-22, 23+22, room_height-28-24*i) {
         draw_set_color(c_gray)
-        draw_rectangle(23+4, room_height-28-20*i-4, 23+18-4, room_height-28-20*i-18+4,0)
+        draw_rectangle(23+4, room_height-28-24*i-4, 23+22-4, room_height-28-24*i-22+4,0)
         draw_circle(device_mouse_x(0), device_mouse_y(0), 17, 1);
     }
 }

@@ -29,6 +29,8 @@
 minigameRooms[0] = r_callbox_game;
 minigames[1] = '실시간 채팅 관리';
 minigameRooms[1] = r_chatting_game;
+minigames[2] = '악플러 머리 꽁하고 때리기 게임';
+minigameRooms[2] = r_hammer_game;
 
 selected = 0;
 

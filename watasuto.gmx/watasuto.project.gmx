@@ -36,6 +36,10 @@
       <sprite>sprites\spr_stage_thumb</sprite>
       <sprite>sprites\spr_stage_explain</sprite>
     </sprites>
+    <sprites name="hammer">
+      <sprite>sprites\spr_hammer_background</sprite>
+      <sprite>sprites\spr_hammer_enemy</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_loop</background>
@@ -61,6 +65,7 @@
     <object>objects\o_main</object>
     <object>objects\o_select</object>
     <object>objects\o_game_chat</object>
+    <object>objects\o_game_hammer</object>
     <object>objects\o_game_callbox</object>
     <object>objects\o_result</object>
   </objects>
@@ -70,6 +75,7 @@
     <room>rooms\r_main</room>
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>
+    <room>rooms\r_hammer_game</room>
     <room>rooms\r_callbox_game</room>
     <room>rooms\r_result</room>
   </rooms>
