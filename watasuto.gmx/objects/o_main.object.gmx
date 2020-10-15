@@ -49,17 +49,79 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_color($000000);
+            <string>/// background
+
+draw_sprite(spr_main_room, 0, 0, 25);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// draw character
+
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// UI
+draw_set_color($212121);
 draw_set_alpha(1);
-draw_set_font(f_nanumgothic);
-draw_set_halign(fa_left);
+
+draw_sprite(spr_main_date,0,0,15);
+
+draw_set_font(f_namsan_header);
+draw_set_halign(fa_center);
 draw_set_valign(fa_top);
 
-draw_text(8, 8, string(global.week) + '주차');
+draw_text_transformed(145, 40, string(global.week) + '주차', 1, 1, 0);
 
-draw_text(8, 48, '구독자 ' + string(global.subscribers) + '명');
-draw_text(8, 68, '좋아요 ' + string(global.likes) + '개');
-draw_text(8, 88, '안티팬 ' + string(global.antifans) + '명');
+
+
+draw_set_font(f_namsan_general);
+
+draw_sprite(spr_twowitch_status, 0, room_width - 5, 15);
+
+draw_text_transformed(room_width - 150, 95, string(global.subscribers) + '명', 1, 1, 0);
+draw_text_transformed(room_width - 150, 95 + 67, string(global.likes) + '개', 1, 1, 0);
+draw_text_transformed(room_width - 150, 95 + 67*2, string(global.antifans) + '명', 1, 1, 0);
+
+draw_window(spr_textbar, 0, 144, room_height - 200, room_width - 144*2, 94);
+
+draw_window(spr_textbar, 0, 154, room_height - 96, room_width - 154*2, 68);
+
+draw_sprite(spr_main_schedule, 0, room_width, room_height);
 
 draw_set_halign(fa_right);
 draw_set_valign(fa_bottom);
