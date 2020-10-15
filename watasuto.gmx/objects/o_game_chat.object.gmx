@@ -220,8 +220,8 @@ if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-20*0-18, 23+18, roo
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>background_hspeed[0] = -0.2;
-background_vspeed[0] = 0.2;
+            <string>background_hspeed[1] = -0.2;
+background_vspeed[1] = 0.2;
 </string>
           </argument>
         </arguments>
