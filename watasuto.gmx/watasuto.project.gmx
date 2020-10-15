@@ -60,6 +60,10 @@
       <sprite>sprites\spr_result_score</sprite>
       <sprite>sprites\spr_result_reward</sprite>
     </sprites>
+    <sprites name="character">
+      <sprite>sprites\spr_character</sprite>
+      <sprite>sprites\sprite34</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_title</background>

@@ -102,7 +102,7 @@ else {
             if (mole_bad_ratio_adjust_max &gt; 0)
                 mole_bad_ratio_adjust +=  (100-mole_bad_ratio) / (100/mole_bad_ratio*mole_bad_ratio_adjust_max);
             selected[? "bad"] = false;
-            selected[? "icon"] = irandom_range(1,2);
+            selected[? "icon"] = 1;
         }else {
             mole_bad_ratio_adjust = 0;
             selected[? "bad"] = true;
