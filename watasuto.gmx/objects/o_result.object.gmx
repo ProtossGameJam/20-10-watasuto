@@ -61,12 +61,11 @@ draw_sprite(spr_result_reward, 0, 661, 572);
 
 draw_set_colour($000000);
 draw_set_alpha(1);
-draw_set_font(f_seoulnamsan_big);
+draw_set_font(f_namsan_header);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_text(640, 87, gameName);
 
-draw_set_font(f_seoulnamsan_big);
 draw_set_colour($f0ff8a);
 draw_text(1016, 246, successCount);
 draw_set_colour($7171ff);
@@ -75,12 +74,13 @@ draw_set_colour($5bfcff);
 draw_text(1016, 487, finalScore);
 
 draw_set_colour($000000);
-draw_set_font(f_seoulnamsan_small);
-draw_text(354, 645, resultText);
-
 draw_set_halign(fa_left);
 draw_text(661 + 122 + 16, 572 + 50, likes);
 draw_text(661 + 341 + 16, 572 + 50, dislikes);
+
+draw_set_font(f_namsan_general);
+draw_set_halign(fa_center);
+draw_text(354, 645, resultText);
 </string>
           </argument>
         </arguments>

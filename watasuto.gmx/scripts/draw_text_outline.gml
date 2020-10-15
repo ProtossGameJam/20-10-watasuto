@@ -1,4 +1,7 @@
-/// draw_text_outline(x,y,str,outwidth,outcol,outfidelity)
+/// draw_text_outline(x, y, str, outwidth, outcol, outfidelity)
+/*
+문서화 나중에 해야징 ㅁㄴㅇㄻㄹㅇㅁㄴㄹㅇㅁㄴㄹㅇㅁ
+*/
 // outfidelity: Fidelity of outline ( 4, 8, 16 )
 
 var col=draw_get_color();

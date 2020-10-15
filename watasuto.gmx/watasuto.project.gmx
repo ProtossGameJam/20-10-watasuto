@@ -11,14 +11,22 @@
       <sprite>sprites\spr_title_anykey</sprite>
       <sprite>sprites\spr_title_mode</sprite>
     </sprites>
-    <sprites name="__DELETE_THIS__">
-      <sprite>sprites\spr_play_background</sprite>
-      <sprite>sprites\spr_play_titlebar</sprite>
-      <sprite>sprites\spr_unused_background</sprite>
-    </sprites>
     <sprites name="cutscene">
       <sprite>sprites\spr_cutscene_text</sprite>
       <sprite>sprites\spr_cutscene_continue</sprite>
+    </sprites>
+    <sprites name="main">
+      <sprite>sprites\spr_main_room</sprite>
+      <sprite>sprites\spr_twowitch_status</sprite>
+      <sprite>sprites\spr_main_date</sprite>
+      <sprite>sprites\spr_main_schedule</sprite>
+      <sprite>sprites\spr_textbar</sprite>
+    </sprites>
+    <sprites name="gameselect">
+      <sprite>sprites\spr_schedule</sprite>
+      <sprite>sprites\spr_stage_title</sprite>
+      <sprite>sprites\spr_stage_thumb</sprite>
+      <sprite>sprites\spr_stage_explain</sprite>
     </sprites>
     <sprites name="minigame">
       <sprite>sprites\spr_game_box</sprite>
@@ -36,6 +44,14 @@
         <sprite>sprites\spr_callbox_grass</sprite>
         <sprite>sprites\spr_callbox_burst</sprite>
       </sprites>
+      <sprites name="hammer">
+        <sprite>sprites\spr_hammer_background</sprite>
+        <sprite>sprites\spr_hammer_enemy</sprite>
+      </sprites>
+      <sprites name="unboxing">
+        <sprite>sprites\spr_unboxing_box</sprite>
+        <sprite>sprites\spr_unboxing_knife</sprite>
+      </sprites>
     </sprites>
     <sprites name="result">
       <sprite>sprites\spr_result_title</sprite>
@@ -43,27 +59,6 @@
       <sprite>sprites\spr_result_image_text</sprite>
       <sprite>sprites\spr_result_score</sprite>
       <sprite>sprites\spr_result_reward</sprite>
-    </sprites>
-    <sprites name="main">
-      <sprite>sprites\spr_main_room</sprite>
-      <sprite>sprites\spr_twowitch_status</sprite>
-      <sprite>sprites\spr_main_date</sprite>
-      <sprite>sprites\spr_main_schedule</sprite>
-      <sprite>sprites\spr_textbar</sprite>
-    </sprites>
-    <sprites name="gameselect">
-      <sprite>sprites\spr_schedule</sprite>
-      <sprite>sprites\spr_stage_title</sprite>
-      <sprite>sprites\spr_stage_thumb</sprite>
-      <sprite>sprites\spr_stage_explain</sprite>
-    </sprites>
-    <sprites name="hammer">
-      <sprite>sprites\spr_hammer_background</sprite>
-      <sprite>sprites\spr_hammer_enemy</sprite>
-    </sprites>
-    <sprites name="unboxing">
-      <sprite>sprites\spr_unboxing_box</sprite>
-      <sprite>sprites\spr_unboxing_knife</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">

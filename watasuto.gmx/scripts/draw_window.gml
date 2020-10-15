@@ -1,4 +1,13 @@
 /// draw_window(spr, subimg, x, y, width, height)
+/*
+9-patch로 직사각형 창을 그립니다.
+
+사용 예시:
+   draw_window(spr_textbar, 0, 144, room_height - 200, room_width - 144*2, 94);
+
+spr: 창의 모양. spr_textbar, spr_stage_title, spr_stage_thumb 중 하나입니다.
+(나머지 인자는 생략)
+*/
 
 // fix settings
 var spr = argument0;
