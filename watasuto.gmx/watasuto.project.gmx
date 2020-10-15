@@ -15,6 +15,19 @@
       <sprite>sprites\spr_cutscene_text</sprite>
       <sprite>sprites\spr_cutscene_continue</sprite>
     </sprites>
+    <sprites name="main">
+      <sprite>sprites\spr_main_room</sprite>
+      <sprite>sprites\spr_twowitch_status</sprite>
+      <sprite>sprites\spr_main_date</sprite>
+      <sprite>sprites\spr_main_schedule</sprite>
+      <sprite>sprites\spr_textbar</sprite>
+    </sprites>
+    <sprites name="gameselect">
+      <sprite>sprites\spr_schedule</sprite>
+      <sprite>sprites\spr_stage_title</sprite>
+      <sprite>sprites\spr_stage_thumb</sprite>
+      <sprite>sprites\spr_stage_explain</sprite>
+    </sprites>
     <sprites name="minigame">
       <sprite>sprites\spr_game_box</sprite>
       <sprite>sprites\spr_game_title_bar</sprite>
@@ -31,6 +44,14 @@
         <sprite>sprites\spr_callbox_grass</sprite>
         <sprite>sprites\spr_callbox_burst</sprite>
       </sprites>
+      <sprites name="hammer">
+        <sprite>sprites\spr_hammer_background</sprite>
+        <sprite>sprites\spr_hammer_enemy</sprite>
+      </sprites>
+      <sprites name="unboxing">
+        <sprite>sprites\spr_unboxing_box</sprite>
+        <sprite>sprites\spr_unboxing_knife</sprite>
+      </sprites>
     </sprites>
     <sprites name="result">
       <sprite>sprites\spr_result_title</sprite>
@@ -44,18 +65,24 @@
     <background>background\bg_title</background>
     <background>background\bg_base</background>
     <background>background\bg_loop</background>
+    <background>background\bg_main</background>
+    <background>background\bg_game_select</background>
     <background>background\bg_result</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\watasuto_init.gml</script>
     <script>scripts\watasuto_gameover.gml</script>
+    <script>scripts\draw_window.gml</script>
+    <script>scripts\draw_text_outline.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
     <font>fonts\f_murukmuruk</font>
     <font>fonts\f_seoulnamsan_small</font>
     <font>fonts\f_seoulnamsan_big</font>
+    <font>fonts\f_namsan_header</font>
+    <font>fonts\f_namsan_general</font>
   </fonts>
   <objects name="objects">
     <object>objects\o_watasuto_title</object>
@@ -63,8 +90,10 @@
     <object>objects\o_main</object>
     <object>objects\o_select</object>
     <object>objects\o_game_chat</object>
+    <object>objects\o_game_hammer</object>
     <object>objects\o_game_callbox</object>
     <object>objects\o_game_callbox_burst</object>
+    <object>objects\o_game_unboxing</object>
     <object>objects\o_result</object>
   </objects>
   <rooms name="rooms">
@@ -74,6 +103,8 @@
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>
     <room>rooms\r_callbox_game</room>
+    <room>rooms\r_hammer_game</room>
+    <room>rooms\r_unboxing_game</room>
     <room>rooms\r_result</room>
   </rooms>
   <help>
