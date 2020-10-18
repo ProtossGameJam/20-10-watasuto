@@ -53,6 +53,14 @@
         <sprite>sprites\spr_unboxing_box</sprite>
         <sprite>sprites\spr_unboxing_knife</sprite>
       </sprites>
+      <sprites name="qna">
+        <sprite>sprites\spr_qna_chat</sprite>
+        <sprite>sprites\spr_qna_table</sprite>
+        <sprite>sprites\spr_qna_button1</sprite>
+        <sprite>sprites\spr_qna_button2</sprite>
+        <sprite>sprites\spr_qna_button3</sprite>
+        <sprite>sprites\spr_qna_character</sprite>
+      </sprites>
     </sprites>
     <sprites name="result">
       <sprite>sprites\spr_result_title</sprite>
@@ -69,6 +77,7 @@
     <background>background\bg_main</background>
     <background>background\bg_game_select</background>
     <background>background\bg_result</background>
+    <background>background\bg_qna</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -95,6 +104,7 @@
     <object>objects\o_game_callbox</object>
     <object>objects\o_game_callbox_burst</object>
     <object>objects\o_game_unboxing</object>
+    <object>objects\o_game_qna</object>
     <object>objects\o_result</object>
   </objects>
   <rooms name="rooms">
@@ -106,6 +116,7 @@
     <room>rooms\r_callbox_game</room>
     <room>rooms\r_hammer_game</room>
     <room>rooms\r_unboxing_game</room>
+    <room>rooms\r_qna_game</room>
     <room>rooms\r_result</room>
   </rooms>
   <help>
