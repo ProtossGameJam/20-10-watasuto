@@ -33,6 +33,7 @@ lineText[3] = '하지만 그 꿈을 이뤄 줄 수 있는 이세계로 온다면
 
 line = 0;
 char = 0;
+transition = -1;
 </string>
           </argument>
         </arguments>
@@ -72,9 +73,14 @@ if(next) {
          global.name = get_string('스트리머 이름 입력', '뀨');
          watasuto_init();
          room_goto(r_main);
-      }
+      } else if(line == 3)
+         transition = 3;
    }
 }
+
+//transition = clamp(min(2, line), transition - 1/30, transition + 1/30); // smooth transition
+if(line &lt;= 2)
+   transition += (min(2, line) - transition)*0.1;
 
 if(char != len)
    char = min(len, char + 0.75);
@@ -109,7 +115,14 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
 if(line &lt; 4) {
+   var base = floor(transition), frc = transition - base;
    len = string_length(lineText[line]);
+   show_debug_message(ceil(transition));
+   if(base != -1)
+      draw_sprite(spr_cutscene_image, base, 0, 0);
+   draw_set_alpha(frc);
+   draw_sprite(spr_cutscene_image, base + 1, 0, 0);
+   draw_set_alpha(1);
    draw_sprite(spr_cutscene_text, 0, 76, room_height - 76);
    draw_text(
       100, room_height - 291,

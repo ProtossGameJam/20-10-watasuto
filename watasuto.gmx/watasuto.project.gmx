@@ -14,6 +14,7 @@
     <sprites name="cutscene">
       <sprite>sprites\spr_cutscene_text</sprite>
       <sprite>sprites\spr_cutscene_continue</sprite>
+      <sprite>sprites\spr_cutscene_image</sprite>
     </sprites>
     <sprites name="main">
       <sprite>sprites\spr_main_room</sprite>
