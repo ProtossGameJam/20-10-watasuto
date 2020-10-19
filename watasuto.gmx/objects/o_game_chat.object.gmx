@@ -34,6 +34,10 @@ viewers = ds_list_create();
 
 viewer_amount = 11;
 viewer_linebreak = 3;
+
+timer = 0;
+timer_max = room_speed * 60; // 임시 게임오버 조건
+
 for(var i=0; i&lt;viewer_amount; i++){
     var viewer = ds_map_create();
     ds_map_add(viewer, "name", "착한유저");
@@ -44,6 +48,7 @@ for(var i=0; i&lt;viewer_amount; i++){
     ds_map_add(viewer, "bad", false);
     ds_list_add(viewers, viewer);
 }
+
 chatting_regen_delay_var = 0.5;
 chatting_regen_delay = 75;
 chatting_regen = 0;
@@ -202,6 +207,36 @@ for(var i=0; i&lt;viewer_amount; i++){
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 게임오버 타이머
+
+if (timer &lt; timer_max) {
+    timer++;
+}else {
+    watasuto_gameover("실시간 채팅 관리",
+      -1, 'dsdadsad',
+      block_wrong, block_bad, 0,
+      100, 5);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="7" enumb="4">
       <action>
@@ -322,9 +357,6 @@ for(var i=0; i&lt;viewer_amount; i++){
     var viewer = viewers[| i];
     
     if (viewer[? "life"] &gt; 0){
-        
-        
-        
         
         if (viewer[? "checked"]) draw_set_alpha(0.4);
         else draw_set_alpha(1);
