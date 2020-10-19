@@ -102,7 +102,7 @@ if(time &lt;= 0)
       '용건만 간단히',
       -1, 'adsfasdfasfda',
       correct, wrong, 0,
-      0, 0
+      100, 0
    );
 </string>
           </argument>
