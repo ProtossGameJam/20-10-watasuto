@@ -52,8 +52,13 @@ titleState = 0;
           <argument>
             <kind>1</kind>
             <string>var
-   any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)/*,
-   left = keyboard_check_pressed(vk_left), right = keyboard_check_pressed(vk_right)*/;
+   any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)
+   load = keyboard_check_pressed(ord('L'));
+
+if(load &amp;&amp; watasuto_load() == 1) {
+   room_goto(r_main);
+   exit;
+}
 
 switch(titleState) {
    case 0:

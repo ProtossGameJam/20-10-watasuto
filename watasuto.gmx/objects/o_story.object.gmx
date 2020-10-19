@@ -70,7 +70,6 @@ if(next) {
       line++;
       char = 0;
       if(line == 4) {
-         global.name = get_string('스트리머 이름 입력', '뀨');
          watasuto_init();
          room_goto(r_main);
       } else if(line == 3)

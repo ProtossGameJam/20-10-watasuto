@@ -83,6 +83,8 @@
   <scripts name="scripts">
     <script>scripts\watasuto_init.gml</script>
     <script>scripts\watasuto_gameover.gml</script>
+    <script>scripts\watasuto_save.gml</script>
+    <script>scripts\watasuto_load.gml</script>
     <script>scripts\draw_window.gml</script>
     <script>scripts\draw_text_outline.gml</script>
   </scripts>
