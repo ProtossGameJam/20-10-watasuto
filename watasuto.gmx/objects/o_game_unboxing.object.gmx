@@ -31,9 +31,6 @@ box_amount = 4;
 for(var i=0; i&lt;box_amount; i++){
     var box = ds_map_create();
     ds_map_add(box, "life", 1);
-    ds_map_add(box, "cut_left", false);
-    ds_map_add(box, "cut_right", false);
-    ds_map_add(box, "cut_middle", false);
     ds_map_add(box, "image", 0);
     ds_list_add(boxes, box);
 }
@@ -171,7 +168,40 @@ if (cutting) {
     if (unclick) {
         cutting = 0;
     }
+    var dir = sign(cut_end - cut_start);
+    if (sign(cut_end - cut_start) == sign((cut_progress + cut_start) - cut_end)) {
+        switch(cutting) {
+            case 1:
+                box_points[2] = 1;
+                box_points[5] = 1;
+                break;
+            case 2:
+                box_points[2] = 1;
+                box_points[5] = 1;
+                break;
+            case 3:
+                box_points[8] = 1;
+                box_points[11] = 1;
+                break;
+            case 4:
+                box_points[8] = 1;
+                box_points[11] = 1;
+                break;
+            case 5:
+                box_points[14] = 1;
+                box_points[17] = 1;
+                break;
+            case 6:
+                box_points[14] = 1;
+                box_points[17] = 1;
+                break;
+        }
+        
+        cutting = 0;
+    }
+
 }
+
 </string>
           </argument>
         </arguments>
