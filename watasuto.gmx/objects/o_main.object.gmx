@@ -35,6 +35,9 @@ top = 35;
 character_x = 580;
 character_y = 490;
 
+schedule_x = room_width;
+schedule_y = room_height;
+
 image_speed = 0;
 alarm[0] = 45; // idle
 alarm[1] = 120; // eye blinking
@@ -134,6 +137,42 @@ if (character_blink_eye) {
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 스케줄 버튼
+var click = device_mouse_check_button_pressed(0, mb_left);
+var _mouse_x = device_mouse_x(0);
+var _mouse_y = device_mouse_y(0);
+
+mask_index = spr_main_schedule;
+x = schedule_x;
+y = schedule_y;
+
+if click &amp;&amp; collision_point(_mouse_x, _mouse_y, self, 1, 0) {
+    room_goto(r_select);
+}
+
+mask_index = noone;
+x = xprevious;
+y = yprevious;
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="8" enumb="0">
       <action>
@@ -210,8 +249,6 @@ draw_set_valign(fa_top);
 
 draw_text_transformed(145, 40, string(global.week) + '주차', 1, 1, 0);
 
-
-
 draw_set_font(f_namsan_general);
 
 draw_sprite(spr_twowitch_status, 0, room_width - 5, 15);
@@ -224,11 +261,7 @@ draw_text_transformed(room_width - 150, 95 + 67*2, string(global.antifans) + '�
 //draw_window(spr_textbar, 0, 144, room_height - 200, room_width - 144*2, 94);
 //draw_window(spr_textbar, 0, 154, room_height - 96, room_width - 154*2, 68);
 
-draw_sprite(spr_main_schedule, 0, room_width, room_height);
-
-draw_set_halign(fa_right);
-draw_set_valign(fa_bottom);
-draw_text(room_width - 8, room_height - 8, '게임 시작! (엔터)');
+draw_sprite(spr_main_schedule, 0, schedule_x, schedule_y);
 </string>
           </argument>
         </arguments>
