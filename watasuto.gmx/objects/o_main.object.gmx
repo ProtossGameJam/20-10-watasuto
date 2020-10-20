@@ -28,6 +28,10 @@
             <string>character_spr = spr_character;
 character_blink_eye = 0;
 character_blink_eye_ready = 0;
+character_sleep = 0;
+character_sleep_timer = 180//room_speed * 60 * 3;
+character_touch = 0;
+character_touch_timer = 60;
 
 left = 40;
 top = 35;
@@ -41,6 +45,61 @@ schedule_y = room_height;
 image_speed = 0;
 alarm[0] = 45; // idle
 alarm[1] = 120; // eye blinking
+alarm[2] = character_sleep_timer // sleep
+alarm[3] = 0; // touch
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="3">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// character touch end
+
+character_touch = 0;
+alarm[2] = character_sleep_timer;
+character_spr = spr_character;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="2">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// character sleep
+
+character_blink_eye = 0;
+character_sleep = 1;
 </string>
           </argument>
         </arguments>
@@ -63,7 +122,8 @@ alarm[1] = 120; // eye blinking
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>alarm[1] = irandom_range(180, 240);
+            <string>/// character blinking eye timer
+alarm[1] = irandom_range(180, 240);
 
 character_blink_eye_ready = 1;
 </string>
@@ -88,11 +148,12 @@ character_blink_eye_ready = 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>alarm[0] = 45;
+            <string>/// character idle + blinking eye
+alarm[0] = 45;
 
-if (!character_blink_eye_ready || !image_index){
+if (character_sleep || !character_blink_eye_ready || !image_index){
     image_index = !image_index;
-}else {
+}else if (!character_touch){
     character_blink_eye_ready = 0;
     character_blink_eye = 1;
     image_index = 1;
@@ -119,12 +180,11 @@ if (!character_blink_eye_ready || !image_index){
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(keyboard_check_pressed(vk_enter))
-   room_goto(r_select);
-   
-   
-   
-   
+            <string>/// character
+var _mouse_x = device_mouse_x(0);
+var _mouse_y = device_mouse_y(0);
+var click = device_mouse_check_button_pressed(0, mb_left);
+
 if (character_blink_eye) {
     if (image_index &lt; 3) {
         image_index += 0.25;
@@ -132,6 +192,15 @@ if (character_blink_eye) {
         image_index = 0;
         character_blink_eye = 0;
     }
+}
+
+if (!character_touch &amp;&amp; click &amp;&amp; point_in_rectangle(_mouse_x, _mouse_y, left + character_x - 65, top + character_y - 275, left + character_x + 65, top + character_y)) {
+    character_blink_eye = 0;
+    character_sleep = 0;
+    alarm[2] = character_sleep_timer;
+    character_touch = 1;
+    alarm[3] = character_touch_timer;
+    character_spr = choose(spr_character_blush, spr_character_suprised);
 }
 </string>
           </argument>
@@ -216,6 +285,8 @@ draw_sprite(spr_main_room, max(global.cleared - 1, 0), left, top);
             <kind>1</kind>
             <string>/// draw character
 
+if (character_sleep) character_spr = spr_character_sleepy;
+if (character_touch) image_index = !round(alarm[3] / character_touch_timer * 0.8);
 draw_sprite(character_spr, image_index, left + character_x, top + character_y);
 </string>
           </argument>

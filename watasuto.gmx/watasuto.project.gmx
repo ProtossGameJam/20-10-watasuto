@@ -62,7 +62,10 @@
     </sprites>
     <sprites name="character">
       <sprite>sprites\spr_character</sprite>
-      <sprite>sprites\sprite34</sprite>
+      <sprite>sprites\spr_charcter_sit</sprite>
+      <sprite>sprites\spr_character_sleepy</sprite>
+      <sprite>sprites\spr_character_suprised</sprite>
+      <sprite>sprites\spr_character_blush</sprite>
     </sprites>
     <sprites name="emoji">
       <sprite>sprites\spr_emoji_rank</sprite>
