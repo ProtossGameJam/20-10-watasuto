@@ -35,7 +35,7 @@ moles = ds_list_create();
 for(var i=0; i&lt;9; i++){
     var mole = ds_map_create();
     ds_map_add(mole, "life", 0);
-    ds_map_add(mole, "chatched", false);
+    ds_map_add(mole, "catched", false);
     ds_map_add(mole, "icon", 1);
     ds_map_add(mole, "bad", true);
     ds_list_add(moles, mole);
@@ -48,14 +48,14 @@ mole_bad_ratio = 100;
 mole_bad_ratio_adjust = 0;
 mole_bad_ratio_adjust_max = 0;
 
-mole_width = 153;
-mole_height = 157;
+mole_width = 127 + 25;
+mole_height = 127 + 30;
 
 left = 8;
 top = 50;
 
-mx = left + 425;
-my = top + 100;
+mx = left + 415;
+my = top + 92;
 </string>
           </argument>
         </arguments>
@@ -96,13 +96,13 @@ else {
     
         // 새 채팅 생성
         selected[? "life"] = mole_life;
-        selected[? "checked"] = false;
+        selected[? "catched"] = false;
         
         if !(irandom(99) &lt; mole_bad_ratio+mole_bad_ratio_adjust){
             if (mole_bad_ratio_adjust_max &gt; 0)
                 mole_bad_ratio_adjust +=  (100-mole_bad_ratio) / (100/mole_bad_ratio*mole_bad_ratio_adjust_max);
             selected[? "bad"] = false;
-            selected[? "icon"] = irandom_range(1,2);
+            selected[? "icon"] = 1;
         }else {
             mole_bad_ratio_adjust = 0;
             selected[? "bad"] = true;
@@ -149,10 +149,10 @@ for(var i=0; i&lt;9; i++){
     var mole = moles[| i];
     
     if (click &amp;&amp; point_in_circle(_mouse_x, _mouse_y, mx + mole_width*(i mod 3) + 55, my + mole_height*floor(i / 3) + 55, 55)) {
-        if (mole[? "life"] &gt; 0 &amp;&amp; !mole[? "checked"]){
+        if (mole[? "life"] &gt; 0 &amp;&amp; !mole[? "catched"]){
             
             mole[? "life"] = 15;
-            mole[? "checked"] = true;
+            mole[? "catched"] = true;
             
             if (mole[? "bad"]) catch++;
             else catch_wrong++;
@@ -306,7 +306,7 @@ for(var i=0; i&lt;9; i++){
     
     if (mole[? "life"] &gt; 0){
         
-        if (mole[? "checked"]) draw_set_alpha(0.4);
+        if (mole[? "catched"]) draw_set_alpha(0.4);
         else draw_set_alpha(1);
 
         draw_sprite(spr_hammer_enemy, mole[? "icon"], mx + mole_width*(i mod 3), my + mole_height*floor(i / 3));

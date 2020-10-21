@@ -36,8 +36,26 @@ minigameRooms[3] = r_unboxing_game;
 
 selected = 0;
 
-dx = room_width / 2;
-dy = 2;
+// sx = room_width / 2
+sy = room_height / 2;
+
+dx = round(room_width / 2);
+dy = sy;
+
+//ex = room_width / 2;
+ey = 2;
+
+time = 0;
+time_max = 45;
+
+
+// scroll
+touch = 0;
+scrolling = 0;
+scrolled_y = 0;
+scroll_y_speed = 0;
+scrolling_height = 128;
+scroll_area_height = 415;
 </string>
           </argument>
         </arguments>
@@ -74,6 +92,107 @@ if(keyboard_check_pressed(vk_escape))
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// easing draw coordinates
+
+
+dy = sy + round((ey - sy) * ease_out_quintic(time/time_max));
+
+time = min(time + 1, time_max);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// touch scroll
+
+var click = device_mouse_check_button_pressed(0, mb_left);
+var unclick = device_mouse_check_button_released(0, mb_left);
+var _mouse_x = device_mouse_x(0);
+var _mouse_y = device_mouse_y(0);
+
+
+if click &amp;&amp; point_in_rectangle(_mouse_x, _mouse_y, dx - 235, dy + 215, dx + 235, dy + 215 + 415) {
+    touch = 1;
+    scroll_sx = _mouse_x;
+    scroll_sy = _mouse_y;
+}
+
+if (touch) {
+    scroll_y_speed = 0;
+    touch++;
+    
+    if (!scrolling &amp;&amp; (point_distance(scroll_sx, scroll_sy, _mouse_x, _mouse_y) &gt; 8 || touch &gt; 10)) {
+        scrolling = 1;
+        _mouse_pre_y = _mouse_y;
+    }
+    
+    if (unclick) {
+        touch = 0;
+        scrolling = 0;
+    }
+}
+
+if (scrolling) {
+    scroll_y_speed = _mouse_pre_y - _mouse_y;
+    
+    if (scrolled_y &lt; scroll_area_height - scrolling_height || 0 &lt; scrolled_y) {
+        scroll_y_speed /= 3;
+    }
+    
+    _mouse_pre_y = _mouse_y;
+}else {
+    scroll_y_speed /= 2;
+    
+    if (0 &lt; scrolled_y) {
+        scroll_y_speed = 0;
+        scrolled_y /= 2;
+    }else if (scrolled_y &lt; scroll_area_height - scrolling_height) {
+        scroll_y_speed = 0;
+        if (scroll_area_height &lt; scrolling_height) {
+            scrolled_y += ((scroll_area_height - scrolling_height) - scrolled_y) / 2;
+        }else {
+            scrolled_y /= 2;
+        }
+    }
+    
+}
+
+ scrolled_y -= scroll_y_speed;
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="8" enumb="0">
       <action>
@@ -92,19 +211,23 @@ if(keyboard_check_pressed(vk_escape))
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(spr_schedule, 0, dx, dy);
+            <string>/// draw ui
+draw_sprite(spr_schedule, 0, dx, dy);
 
-draw_sprite_ext(spr_stage_explain, 0, dx - 195 + 128, dy + 225 + 62, 1, 42, 0, c_white, 1);
+shader_set_clip_rect(dx - 235, dy + 215, dx + 235, dy + 215 + scroll_area_height);
+draw_sprite_ext(spr_stage_explain, 0, dx - 225 + 128, round(scrolled_y) + dy + 225 + 62, 1, 42, 0, c_white, 1);
 draw_set_font(f_namsan_general);
 draw_set_halign(fa_left);
 draw_set_color($212121);
-draw_text(dx - 195 + 128 + 10, dy + 225 + 62 + 10, "대충 설명설명설명 이러이러해서 저러저러");
+draw_text(dx - 225 + 128 + 10, round(scrolled_y) + dy + 225 + 62 + 10, "대충 설명설명설명 이러이러해서 저러저러");
 
-draw_window(spr_stage_title, 0, dx - 195 + 128 - 10, dy + 225 + 20, 280, 42);
+draw_window(spr_stage_title, 0, dx - 225 + 128 - 10, round(scrolled_y) + dy + 225 + 20, 280, 42);
 draw_set_color($efefef);
-draw_text_outline(dx - 195 + 128 + 10, dy + 225 + 20 + 10, minigames[0], 2, $94941c, 4);
+draw_text_outline(dx - 225 + 128 + 10, round(scrolled_y) + dy + 225 + 20 + 10, minigames[0], 2, $94941c, 4);
 
-draw_window(spr_stage_thumb, 0, dx - 195, dy + 225, 128, 128);
+draw_window(spr_stage_thumb, 0, dx - 225, round(scrolled_y) + dy + 225, 128, 128);
+
+shader_reset();
 </string>
           </argument>
         </arguments>

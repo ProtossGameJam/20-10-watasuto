@@ -69,6 +69,13 @@
       <sprite>sprites\spr_result_score</sprite>
       <sprite>sprites\spr_result_reward</sprite>
     </sprites>
+    <sprites name="character">
+      <sprite>sprites\spr_character</sprite>
+      <sprite>sprites\sprite34</sprite>
+    </sprites>
+    <sprites name="emoji">
+      <sprite>sprites\spr_emoji_rank</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_title</background>
@@ -87,7 +94,43 @@
     <script>scripts\watasuto_load.gml</script>
     <script>scripts\draw_window.gml</script>
     <script>scripts\draw_text_outline.gml</script>
+    <scripts name="easing_library">
+      <script>scripts\ease_in_quad.gml</script>
+      <script>scripts\ease_out_quad.gml</script>
+      <script>scripts\ease_in_out_quad.gml</script>
+      <script>scripts\ease_in_cubic.gml</script>
+      <script>scripts\ease_out_cubic.gml</script>
+      <script>scripts\ease_in_out_cubic.gml</script>
+      <script>scripts\ease_in_quartic.gml</script>
+      <script>scripts\ease_out_quartic.gml</script>
+      <script>scripts\ease_in_out_quartic.gml</script>
+      <script>scripts\ease_in_quintic.gml</script>
+      <script>scripts\ease_out_quintic.gml</script>
+      <script>scripts\ease_in_out_quintic.gml</script>
+      <script>scripts\ease_in_sine.gml</script>
+      <script>scripts\ease_out_sine.gml</script>
+      <script>scripts\ease_in_out_sine.gml</script>
+      <script>scripts\ease_in_expo.gml</script>
+      <script>scripts\ease_out_expo.gml</script>
+      <script>scripts\ease_in_out_expo.gml</script>
+      <script>scripts\ease_in_circ.gml</script>
+      <script>scripts\ease_out_circ.gml</script>
+      <script>scripts\ease_in_out_circ.gml</script>
+      <script>scripts\ease_in_elastic.gml</script>
+      <script>scripts\ease_out_elastic.gml</script>
+      <script>scripts\ease_in_out_elastic.gml</script>
+      <script>scripts\ease_in_back.gml</script>
+      <script>scripts\ease_out_back.gml</script>
+      <script>scripts\ease_in_out_back.gml</script>
+      <script>scripts\ease_in_bounce.gml</script>
+      <script>scripts\ease_out_bounce.gml</script>
+      <script>scripts\ease_in_out_bounce.gml</script>
+    </scripts>
+    <script>scripts\shader_set_clip_rect.gml</script>
   </scripts>
+  <shaders name="shaders">
+    <shader type="GLSLES">shaders\shd_clip_rect.shader</shader>
+  </shaders>
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
     <font>fonts\f_murukmuruk</font>

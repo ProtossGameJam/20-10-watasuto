@@ -8,19 +8,22 @@
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
   <bbox_left>0</bbox_left>
-  <bbox_right>1145</bbox_right>
+  <bbox_right>71</bbox_right>
   <bbox_top>0</bbox_top>
-  <bbox_bottom>633</bbox_bottom>
+  <bbox_bottom>71</bbox_bottom>
   <HTile>0</HTile>
   <VTile>0</VTile>
   <TextureGroups>
     <TextureGroup0>0</TextureGroup0>
   </TextureGroups>
   <For3D>0</For3D>
-  <width>1146</width>
-  <height>634</height>
+  <width>72</width>
+  <height>72</height>
   <frames>
-    <frame index="0">images\spr_main_room_0.png</frame>
-    <frame index="1">images\spr_main_room_1.png</frame>
+    <frame index="0">images\spr_emoji_rank_0.png</frame>
+    <frame index="1">images\spr_emoji_rank_1.png</frame>
+    <frame index="2">images\spr_emoji_rank_2.png</frame>
+    <frame index="3">images\spr_emoji_rank_3.png</frame>
+    <frame index="4">images\spr_emoji_rank_4.png</frame>
   </frames>
 </sprite>
