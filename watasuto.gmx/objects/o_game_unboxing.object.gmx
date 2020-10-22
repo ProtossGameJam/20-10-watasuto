@@ -25,52 +25,48 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>boxes = ds_list_create();
-
-box_amount = 4;
-for(var i=0; i&lt;box_amount; i++){
-    var box = ds_map_create();
-    ds_map_add(box, "life", 1);
-    ds_map_add(box, "image", 0);
-    ds_list_add(boxes, box);
-}
-
-
-spr_w = sprite_get_width(spr_unboxing_box);
+            <string>spr_w = sprite_get_width(spr_unboxing_box);
 spr_h = sprite_get_height(spr_unboxing_box);
 
-left = room_width / 2 - spr_w / 2;
-top = room_height / 2 - spr_h / 2;
+left = room_width / 2 - spr_w / 2 + 40;
+top = room_height / 2 - spr_h / 2 + 40;
+
+box_opening = 0;
+box_passing = 0;
+box_pass_x = 0;
+box_next_x = 0;
 
 cut_start_spot = 0;
 cutting = 0;
 cut_start = 0;
 cut_end = 0;
 
-box_points[0] = 28; // left top
-box_points[1] = 226;
+box_points[0] = 0; // left top
+box_points[1] = 186;
 box_points[2] = 0;
 
-box_points[3] = 28; // left bottom
-box_points[4] = 322;
+
+box_points[3] = 0; // left bottom
+box_points[4] = 302;
 box_points[5] = 0;
 
-box_points[6] = 576; // right top
-box_points[7] = 226;
+box_points[6] = 550; // right top
+box_points[7] = 186;
 box_points[8] = 0;
 
-box_points[9] = 576; // right bottom
-box_points[10] = 322;
+box_points[9] = 550; // right bottom
+box_points[10] = 302;
 box_points[11] = 0;
 
-box_points[12] = 28; // left middle
-box_points[13] = 270;
+box_points[12] = 0; // left middle
+box_points[13] = 240;
 box_points[14] = 0;
 
-box_points[15] = 576; // right middle
-box_points[16] = 270;
+box_points[15] = 550; // right middle
+box_points[16] = 240;
 box_points[17] = 0;
 
+show_play = 0;
 
 </string>
           </argument>
@@ -202,6 +198,38 @@ if (cutting) {
 
 }
 
+
+if (!box_opening &amp;&amp; box_points[2] &amp;&amp; box_points[5] &amp;&amp; box_points[8] &amp;&amp; box_points[11] &amp;&amp; box_points[14] &amp;&amp; box_points[17]) {
+    box_opening = 1;
+}
+
+if (box_opening) {
+    if (box_opening &lt; 50) {
+        box_opening++;
+    }else if (!box_passing) {
+        box_passing = 1;
+    }
+}
+
+if (box_passing) {
+    if (box_passing &lt; 33) {
+        box_passing++;
+        
+        box_pass_x = room_width * ease_out_quartic(min(box_passing,30)/30);
+        box_next_x = 720 * ease_in_out_quintic(min(box_passing,30)/30);
+    }else {
+        box_opening = 0;
+        box_passing = 0;
+        box_points[2] = 0;
+        box_points[5] = 0;
+        box_points[8] = 0;
+        box_points[11] = 0;
+        box_points[14] = 0;
+        box_points[17] = 0;
+        box_pass_x = 0;
+        box_next_x = 0;
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -224,8 +252,47 @@ if (cutting) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>
-draw_sprite(spr_unboxing_box, 0, left, top);
+            <string>/// background draw
+
+draw_set_alpha(1);
+draw_sprite(spr_unboxing_background, 0, 64, 51);
+if (floor(show_play / 30) mod 2) draw_sprite(spr_game_play, 0, 0, 0);
+show_play++;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// drawing boxes, mosue cursor
+var _mouse_x = device_mouse_x(0);
+var _mouse_y = device_mouse_y(0);
+
+shader_set_clip_rect(64 + 10, 51 + 21, 64 + 1152 - 10, 51 + 648 - 10);
+
+draw_sprite(spr_unboxing_box, 0, round(left) - 1440 + box_next_x, round(top));
+draw_sprite(spr_unboxing_box, 0, round(left) - 720 + box_next_x, round(top));
+if (!box_opening) {
+    draw_sprite(spr_unboxing_box, 1, round(left) + box_pass_x, round(top));
+}else {
+    draw_sprite(spr_unboxing_box_open, min(3, floor(box_opening / 5)), round(left) + box_pass_x, round(top)); 
+}
+
+shader_reset();
 
 if (cut_start_spot &amp;&amp; !cutting) {
     draw_sprite(spr_unboxing_knife, cut_start_spot - 1, left + box_points[cut_start_spot*3-3], top + box_points[cut_start_spot*3-2]);
@@ -237,13 +304,17 @@ switch(cutting) {
     case 3:
     case 4:
         draw_sprite(spr_unboxing_knife, cutting - 1, left + box_points[cutting*3-3], top + box_points[cutting*3-2] + cut_progress);
-        draw_circle(mouse_x, cut_end, 4, 0);
+        draw_sprite_ext(spr_unboxing_knife, cutting - 1, left + box_points[cutting*3-3], top + cut_end - (cut_start - box_points[cutting*3-2]), 1, 1, 0, c_white, 0.4);
         break;
     case 5:
     case 6:
         draw_sprite(spr_unboxing_knife, cutting - 1, left + box_points[cutting*3-3] + cut_progress, top + box_points[cutting*3-2]);
-        draw_circle(cut_end, mouse_y, 4, 0);
+        draw_sprite_ext(spr_unboxing_knife, cutting - 1, left + cut_end - (cut_start - box_points[cutting*3-3]), top + box_points[cutting*3-2], 1, 1, 0, c_white, 0.4);
         break;
+}
+
+if (!cut_start_spot &amp;&amp; !cutting) {
+    draw_sprite(spr_emoji_cursor, 2, _mouse_x, _mouse_y);
 }
 </string>
           </argument>

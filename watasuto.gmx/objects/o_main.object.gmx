@@ -31,7 +31,7 @@ character_blink_eye_ready = 0;
 character_sleep = 0;
 character_sleep_timer = 180//room_speed * 60 * 3;
 character_touch = 0;
-character_touch_timer = 60;
+character_touch_timer = 80;
 
 left = 40;
 top = 35;

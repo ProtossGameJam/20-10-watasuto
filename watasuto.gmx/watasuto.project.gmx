@@ -50,7 +50,9 @@
       </sprites>
       <sprites name="unboxing">
         <sprite>sprites\spr_unboxing_box</sprite>
+        <sprite>sprites\spr_unboxing_box_open</sprite>
         <sprite>sprites\spr_unboxing_knife</sprite>
+        <sprite>sprites\spr_unboxing_background</sprite>
       </sprites>
     </sprites>
     <sprites name="result">
@@ -69,6 +71,7 @@
     </sprites>
     <sprites name="emoji">
       <sprite>sprites\spr_emoji_rank</sprite>
+      <sprite>sprites\spr_emoji_cursor</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background">
