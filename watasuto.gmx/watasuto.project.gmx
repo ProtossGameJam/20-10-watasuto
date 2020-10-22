@@ -92,7 +92,9 @@
     <script>scripts\watasuto_gameover.gml</script>
     <script>scripts\watasuto_save.gml</script>
     <script>scripts\watasuto_load.gml</script>
+    <script>scripts\qna_decode.gml</script>
     <script>scripts\draw_window.gml</script>
+    <script>scripts\draw_window_ext.gml</script>
     <script>scripts\draw_text_outline.gml</script>
     <scripts name="easing_library">
       <script>scripts\ease_in_quad.gml</script>
@@ -153,6 +155,7 @@
     <object>objects\o_result</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\r_qna_game</room>
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_main</room>
@@ -161,7 +164,6 @@
     <room>rooms\r_callbox_game</room>
     <room>rooms\r_hammer_game</room>
     <room>rooms\r_unboxing_game</room>
-    <room>rooms\r_qna_game</room>
     <room>rooms\r_result</room>
   </rooms>
   <help>

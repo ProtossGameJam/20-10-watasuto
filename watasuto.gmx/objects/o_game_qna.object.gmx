@@ -29,6 +29,33 @@
 anim1 = 0;
 anim2 = 0;
 animF = 0;
+history[0] = -1;
+answered = 0;
+
+line = 0;
+char = 0;
+question = '';
+answer[0] = '';
+answer[1] = '';
+answer[2] = '';
+branch = array_create(3);
+
+lines[0] = 'Q&amp;A 테스트!';
+lines[1] = '질문 갑니다 뿅';
+lines[2] = '`다람쥐 헌 쳇바퀴에 타고파.`갑`3`을`5`병`7`';
+lines[3] = '"갑"';
+lines[4] = 8;
+lines[5] = '"을"';
+lines[6] = 8;
+lines[7] = '"병"';
+lines[8] = '실전 문제!';
+lines[9] = '`부먹찍먹?`부먹`10`찍먹`12`처먹`14`';
+lines[10] = '저 찍먹임 ㅋ';
+lines[11] = 15;
+lines[12] = '저 부먹임 ㅋ';
+lines[13] = 15;
+lines[14] = '오 우문현답 오...';
+lines[15] = '끝끝끝끝끝이런거하기싫어';
 </string>
           </argument>
         </arguments>
@@ -51,8 +78,52 @@ animF = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(mouse_check_button_pressed(mb_left))
-   mode = !mode;
+            <string>/*if(mouse_check_button_pressed(mb_left))
+   mode = !mode;*/
+
+var
+   click = mouse_check_button_released(mb_left),
+   next =
+      mouse_check_button_pressed(mb_left) ||
+      keyboard_check_pressed(vk_space) ||
+      keyboard_check_pressed(vk_enter),
+   len = string_length(lines[line]);
+
+if(!mode) {
+   if(next)
+      if(char &lt; len)
+         char = len;
+      else {
+         line++;
+         char = 0;
+         while(is_real(lines[line])) // jump
+            line = lines[line];
+         
+         if(line == array_length_1d(lines))
+            room_goto(r_main);
+         else if(string_char_at(lines[line], 1) == '`') {
+            mode = 1;
+            qna_decode(lines[line]);
+         } else {
+            mode = 0;
+         }
+      }
+} else if(click) {
+   var sel = -1;
+   if(mouse_y &gt;= 226 &amp;&amp; mouse_y &lt; 336)
+      if(mouse_x &gt;= 69 &amp;&amp; mouse_x &lt; 379)
+         sel = 0;
+      else if(mouse_x &gt;= 901 &amp;&amp; mouse_x &lt; 1211)
+         sel = 1;
+   if(sel != -1) {
+      history[answered++] = sel;
+      line = real(branch[sel]);
+      mode = 0;
+   }
+}
+
+if(char != len)
+   char = min(len, char + 0.75);
 
 animF += (mode - animF)/4;
 if(!mode) {
@@ -84,7 +155,17 @@ if(!mode) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_colour($ffffff);
+            <string>var
+   scale = (4 + animF)/5,
+   scale1 = scale,
+   scale2 = scale;
+if(mouse_y &gt;= 226 &amp;&amp; mouse_y &lt; 336)
+   if(mouse_x &gt;= 69 &amp;&amp; mouse_x &lt; 379)
+      scale1 *= 1.2;
+   else if(mouse_x &gt;= 901 &amp;&amp; mouse_x &lt; 1211)
+      scale2 *= 1.2;
+
+draw_set_colour($ffffff);
 draw_set_alpha(1);
 
 draw_sprite(spr_qna_character, mode, lerp(456, 647, anim2), 561);
@@ -99,21 +180,58 @@ draw_sprite_ext(
 draw_sprite_ext(
    spr_qna_button1, 0,
    314, 383,
-   (4 + animF)/5, (4 + animF)/5, 0,
+   scale1, scale1, 0,
    $ffffff, animF
 );
 draw_sprite_ext(
    spr_qna_button2, 0,
    966, 383,
-   (4 + animF)/5, (4 + animF)/5, 0,
+   scale2, scale2, 0,
    $ffffff, animF
 );
 draw_sprite_ext(
    spr_qna_button3, 0,
    372, 506,
-   (4 + animF)/5, (4 + animF)/5, 0,
+   scale, scale, 0,
    $ffffff, animF
 );
+
+draw_set_colour($000000);
+draw_set_font(f_nanumgothic);
+draw_set_halign(fa_center);
+draw_set_valign(fa_middle);
+draw_set_alpha(animF);
+
+draw_text_transformed(
+   314 - 90*scale1, 383 - 102*scale1,
+   answer[0],
+   scale1, scale1, 0
+);
+draw_text_transformed(
+   966 + 90*scale2, 383 - 102*scale2,
+   answer[1],
+   scale2, scale2, 0
+);
+
+draw_set_alpha(1);
+
+if(!mode) {
+   var len = string_length(lines[line]);
+
+   draw_set_halign(fa_left);
+   draw_set_valign(fa_top);
+   draw_window_ext(spr_textbar, 0, 54, 467, 676, 202, $ffffff, 0.65);
+   draw_text(
+      78, 491,
+      string_copy(lines[line], 1, floor(min(len, char + 1)))
+   );
+   if(char == len)
+      draw_sprite(spr_cutscene_continue, 0, 706, 645);
+} else {
+   draw_set_colour($ffffff);
+   draw_set_font(f_murukmuruk);
+   draw_text(640, 616, 'Q. ' + question);
+}
 </string>
           </argument>
         </arguments>

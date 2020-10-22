@@ -120,7 +120,7 @@ if(line &lt; 4) {
    draw_set_alpha(frc);
    draw_sprite(spr_cutscene_image, base + 1, 0, 0);
    draw_set_alpha(1);
-   draw_sprite(spr_cutscene_text, 0, 76, room_height - 76);
+   draw_window_ext(spr_textbar, 0, 76, room_height - 315, 1127, 239, $ffffff, 0.65);
    draw_text(
       100, room_height - 291,
       string_copy(lineText[line], 1, floor(min(len, char + 1)))
