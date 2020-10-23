@@ -53,6 +53,8 @@
         <sprite>sprites\spr_unboxing_box_open</sprite>
         <sprite>sprites\spr_unboxing_knife</sprite>
         <sprite>sprites\spr_unboxing_background</sprite>
+        <sprite>sprites\spr_unboxing_good</sprite>
+        <sprite>sprites\spr_unboxing_bad</sprite>
       </sprites>
     </sprites>
     <sprites name="result">

@@ -68,6 +68,10 @@ box_points[17] = 0;
 
 show_play = 0;
 
+content_bad_percentage = 20;
+content_bad = false;
+content_sprite = noone;
+content_sprite_index = 0;
 </string>
           </argument>
         </arguments>
@@ -201,6 +205,16 @@ if (cutting) {
 
 if (!box_opening &amp;&amp; box_points[2] &amp;&amp; box_points[5] &amp;&amp; box_points[8] &amp;&amp; box_points[11] &amp;&amp; box_points[14] &amp;&amp; box_points[17]) {
     box_opening = 1;
+    
+    content_bad = (irandom(99) &lt; content_bad_percentage);
+
+    if (content_bad) {
+        content_sprite = spr_unboxing_bad;
+    }else {
+        content_sprite = spr_unboxing_good;
+    }
+    content_sprite_index = irandom(sprite_get_number(content_sprite) - 1);
+    
 }
 
 if (box_opening) {
@@ -290,6 +304,9 @@ if (!box_opening) {
     draw_sprite(spr_unboxing_box, 1, round(left) + box_pass_x, round(top));
 }else {
     draw_sprite(spr_unboxing_box_open, min(3, floor(box_opening / 5)), round(left) + box_pass_x, round(top)); 
+    if (min(3, floor(box_opening / 5)) &gt; 1) {
+        draw_sprite_ext(content_sprite, content_sprite_index, round(left + box_pass_x) + 262, round(top) + 244, 2, 2, 0, c_white, 1);
+    }
 }
 
 shader_reset();
@@ -304,12 +321,12 @@ switch(cutting) {
     case 3:
     case 4:
         draw_sprite(spr_unboxing_knife, cutting - 1, left + box_points[cutting*3-3], top + box_points[cutting*3-2] + cut_progress);
-        draw_sprite_ext(spr_unboxing_knife, cutting - 1, left + box_points[cutting*3-3], top + cut_end - (cut_start - box_points[cutting*3-2]), 1, 1, 0, c_white, 0.4);
+        draw_sprite_ext(spr_unboxing_knife, cutting - 1, left + box_points[cutting*3-3], top + cut_end - (cut_start - box_points[cutting*3-2]), 1, 1, 0, c_white, 0.5);
         break;
     case 5:
     case 6:
         draw_sprite(spr_unboxing_knife, cutting - 1, left + box_points[cutting*3-3] + cut_progress, top + box_points[cutting*3-2]);
-        draw_sprite_ext(spr_unboxing_knife, cutting - 1, left + cut_end - (cut_start - box_points[cutting*3-3]), top + box_points[cutting*3-2], 1, 1, 0, c_white, 0.4);
+        draw_sprite_ext(spr_unboxing_knife, cutting - 1, left + cut_end - (cut_start - box_points[cutting*3-3]), top + box_points[cutting*3-2], 1, 1, 0, c_white, 0.5);
         break;
 }
 
