@@ -34,8 +34,46 @@ time = 300;
 timeMax = 300;
 timeMp = 1;
 anim = 0;
-for(var i = 0; i &lt; 3; i++)
+wobbleAnim = 0;
+wrongAnim = 0;
+shotAnim = 0;
+sfCrop = -1;
+for(var i = 0; i &lt; 3; i++) {
+   wobbleX[i] = random_range(0.5, 2);
+   wobbleY[i] = random_range(0.5, 2);
+   wobbleA[i] = random_range(0.25, 1);
+   wobbleXf[i] = random_range(0.5, 3);
+   wobbleYf[i] = random_range(0.5, 3);
+   wobbleAf[i] = random_range(0.5, 3);
+   wobbleXoff[i] = random(2*pi);
+   wobbleYoff[i] = random(2*pi);
+   wobbleAoff[i] = random(2*pi);
    next[i] = irandom_range(0, 3);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(surface_exists(sfCrop))
+   surface_free(sfCrop);
 </string>
           </argument>
         </arguments>
@@ -89,6 +127,7 @@ if(inputAll)
       anim++;
    } else {
       wrong++;
+      wrongAnim = 21;
       if(shield)
          shield--;
       else
@@ -97,6 +136,14 @@ if(inputAll)
 anim *= 0.75;
 
 timeMax = max(timeMax, time);
+wobbleAnim++;
+if(wrongAnim != 0)
+   wrongAnim--;
+if(random(1) &lt; 1/60)
+   shotAnim = 3;
+else if(shotAnim != 0)
+   shotAnim--;
+
 if(time &lt;= 0)
    watasuto_gameover(
       '용건만 간단히',
@@ -196,11 +243,38 @@ draw_rectangle(74, 669, 74 + 1132*time/timeMax, 688, false);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(spr_game_box, 0, 0, 0);
+            <string>var wx = 0, wy = 36, wa = 0;
+for(var i = 0; i &lt; 3; i++) {
+   wx += wobbleX[i]*sin(wobbleXf[i]*wobbleAnim/30*pi + wobbleXoff[i]);
+   wy += wobbleY[i]*sin(wobbleYf[i]*wobbleAnim/30*pi + wobbleYoff[i]);
+   wa += wobbleA[i]*sin(wobbleAf[i]*wobbleAnim/30*pi + wobbleAoff[i]);
+}
+wy -= 16*sqr(wrongAnim/20);
+
+draw_sprite(spr_game_box, 0, 0, 0);
 draw_sprite(spr_game_play, 0, 0, 0);
 
 draw_sprite(spr_callbox_grass, 0, 1206, 689);
-draw_sprite(spr_callbox_character, 0, 106, 689);
+
+if(!surface_exists(sfCrop))
+   sfCrop = surface_create(1132, 617);
+surface_set_target(sfCrop);
+draw_clear_alpha($000000, 0);
+draw_sprite_ext(
+   spr_callbox_character, wrongAnim != 0,
+   393 + wx, 617 + wy,
+   1, 1, wa,
+   $ffffff, 1
+);
+surface_reset_target();
+draw_surface(sfCrop, 74, 72);
+if(shotAnim) {
+   draw_set_colour($ffffff);
+   draw_set_alpha(shotAnim/6);
+   draw_rectangle(74, 72, 1205, 688, false);
+}
+
+draw_set_alpha(1);
 draw_sprite(spr_callbox_callbox, 0, 74, 689);
 </string>
           </argument>
