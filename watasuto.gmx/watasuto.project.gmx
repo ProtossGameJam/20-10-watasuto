@@ -49,6 +49,8 @@
         <sprite>sprites\spr_hammer_background</sprite>
         <sprite>sprites\spr_hammer_backgorund1</sprite>
         <sprite>sprites\spr_hammer_enemy</sprite>
+        <sprite>sprites\spr_hammer_cursor</sprite>
+        <sprite>sprites\spr_hammer_burst</sprite>
       </sprites>
       <sprites name="unboxing">
         <sprite>sprites\spr_unboxing_box</sprite>
@@ -145,8 +147,6 @@
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
     <font>fonts\f_murukmuruk</font>
-    <font>fonts\f_seoulnamsan_small</font>
-    <font>fonts\f_seoulnamsan_big</font>
     <font>fonts\f_namsan_header</font>
     <font>fonts\f_namsan_general</font>
   </fonts>
