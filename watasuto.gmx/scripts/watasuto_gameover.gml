@@ -21,6 +21,14 @@ var
    _likes = argument6, _dislikes = argument7;
 
 room_goto(r_result);
+global.cleared++;
+global.likes += _likes;
+global.antifans += _dislikes;
+if(global.cleared%2 == 0) {
+   global.week++;
+   global.subscribers += (global.likes - global.antifans)*0.3;
+}
+watasuto_save();
 
 with(instance_create(0, 0, o_result)) {
    gameName = _game_name;

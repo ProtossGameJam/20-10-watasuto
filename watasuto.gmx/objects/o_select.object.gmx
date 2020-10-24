@@ -33,6 +33,8 @@ minigames[2] = '악플러 머리 꽁하고 때리기 게임';
 minigameRooms[2] = r_hammer_game;
 minigames[3] = '언 - 빡싱 게임';
 minigameRooms[3] = r_unboxing_game;
+minigames[4] = 'Q&amp;A';
+minigameRooms[4] = r_qna_game;
 
 selected = 0;
 

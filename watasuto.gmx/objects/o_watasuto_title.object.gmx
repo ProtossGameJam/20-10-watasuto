@@ -52,8 +52,13 @@ titleState = 0;
           <argument>
             <kind>1</kind>
             <string>var
-   any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)/*,
-   left = keyboard_check_pressed(vk_left), right = keyboard_check_pressed(vk_right)*/;
+   any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)
+   load = keyboard_check_pressed(ord('L'));
+
+if(load &amp;&amp; watasuto_load() == 1) {
+   room_goto(r_main);
+   exit;
+}
 
 switch(titleState) {
    case 0:
@@ -65,19 +70,16 @@ switch(titleState) {
          titleState = 2;
    break;*/
    case 2:
-      if(mouse_check_button_pressed(mb_left)) {
-         var selected = -1;
+      if(mouse_check_button_pressed(mb_left))
          if(mouse_y &gt;= 29 &amp;&amp; mouse_y &lt; 690)
-            if(mouse_x &gt;= 53 &amp;&amp; mouse_x &lt; 614)
-               selected = 0;
-            else if(mouse_x &gt;= 666 &amp;&amp; mouse_x &lt; 1227)
-               selected = 1;
-         
-         if(selected == -1)
-            break;
-         global.storyMode = selected;
-         room_goto(r_story);
-      }
+            if(mouse_x &gt;= 53 &amp;&amp; mouse_x &lt; 614) {
+               global.storyMode = true;
+               room_goto(r_story);
+            } else if(mouse_x &gt;= 666 &amp;&amp; mouse_x &lt; 1227) {
+               global.storyMode = true;
+               watasuto_init();
+               room_goto(r_main);
+            }
    break;
 }
 </string>
