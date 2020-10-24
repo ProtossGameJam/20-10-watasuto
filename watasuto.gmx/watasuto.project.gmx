@@ -46,6 +46,7 @@
       </sprites>
       <sprites name="hammer">
         <sprite>sprites\spr_hammer_background</sprite>
+        <sprite>sprites\spr_hammer_backgorund1</sprite>
         <sprite>sprites\spr_hammer_enemy</sprite>
       </sprites>
       <sprites name="unboxing">
