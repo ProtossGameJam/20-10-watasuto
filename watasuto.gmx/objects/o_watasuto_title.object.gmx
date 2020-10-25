@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>global.storyMode = false;
+            <string>randomize();
+
+global.storyMode = false;
 
 titleState = 0;
 // 0 = 최초 상태, 1 = 새 게임/불러오기 (미구현), 2 = 스토리/무한모드 선택
@@ -74,7 +76,7 @@ switch(titleState) {
          if(mouse_y &gt;= 29 &amp;&amp; mouse_y &lt; 690)
             if(mouse_x &gt;= 53 &amp;&amp; mouse_x &lt; 614) {
                global.storyMode = true;
-               room_goto(r_story);
+               room_change(r_story);
             } else if(mouse_x &gt;= 666 &amp;&amp; mouse_x &lt; 1227) {
                global.storyMode = true;
                watasuto_init();

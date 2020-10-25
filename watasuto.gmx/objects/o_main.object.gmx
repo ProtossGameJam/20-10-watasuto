@@ -194,6 +194,8 @@ if (character_blink_eye) {
     }
 }
 
+if (instance_exists(o_room_changer)) exit;
+
 if (!character_touch &amp;&amp; click &amp;&amp; point_in_rectangle(_mouse_x, _mouse_y, left + character_x - 65, top + character_y - 275, left + character_x + 65, top + character_y)) {
     character_blink_eye = 0;
     character_sleep = 0;
@@ -262,6 +264,7 @@ y = yprevious;
             <kind>1</kind>
             <string>/// background
 
+draw_set_alpha(1);
 draw_sprite(spr_main_room, max(global.cleared - 1, 0), left, top);
 </string>
           </argument>
@@ -323,6 +326,7 @@ draw_text_transformed(145, 40, string(global.week) + '주차', 1, 1, 0);
 draw_set_font(f_namsan_general);
 
 draw_sprite(spr_twowitch_status, 0, room_width - 5, 15);
+draw_sprite_ext(spr_emoji_rank, get_twowitch_grade(), room_width - 295, 18, 0.5, 0.5, 0, c_white, 1)
 
 draw_text_transformed(room_width - 150, 95, string(global.subscribers) + '명', 1, 1, 0);
 draw_text_transformed(room_width - 150, 95 + 67, string(global.likes) + '개', 1, 1, 0);

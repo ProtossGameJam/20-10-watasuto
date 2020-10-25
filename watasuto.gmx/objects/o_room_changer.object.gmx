@@ -3,8 +3,8 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
-  <persistent>0</persistent>
+  <depth>-1</depth>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,15 +25,30 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>lineText = array_create(4);
-lineText[0] = '나도 스트리머... 해볼까...';
-lineText[1] = '뭐 내가 그런 걸 할 수 있을 리가 없지만.';
-lineText[2] = '.....';
-lineText[3] = '하지만 그 꿈을 이뤄 줄 수 있는 이세계로 온다면 어떻게 될까요~~~?';
+            <string>timer = 0;
+timer_max = 30;
 
-line = 0;
-char = 0;
-transition = -1;
+pass = 0;
+pass_alpha = 0;
+
+phase = 0;
+phase_delay = 30;
+
+x = choose(0, room_width);
+y = choose(0, room_height);
+
+x_end = room_width - median(0, x, room_width);
+y_end = room_height - median(0, y, room_height);
+
+size_end = point_distance(x,y,x_end,y_end);
+
+image_angle = point_direction(x,y,x_end,y_end);
+image_yscale = 2500;
+
+background_shift_x = 0;
+background_shift_y = 0;
+
+surf = -1;
 </string>
           </argument>
         </arguments>
@@ -56,33 +71,30 @@ transition = -1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (instance_exists(o_room_changer)) exit;
-var
-   next =
-      mouse_check_button_pressed(mb_left) ||
-      keyboard_check_pressed(vk_space) ||
-      keyboard_check_pressed(vk_enter),
-   len = string_length(lineText[line]);
+            <string>timer += (!phase || pass || timer &lt; 0);
 
-if(next) {
-   if(char &lt; len)
-      char = len;
-   else {
-      line++;
-      char = 0;
-      if(line == 4) {
-         watasuto_init();
-         room_change(r_main);
-      } else if(line == 3)
-         transition = 3;
-   }
+if timer &gt; timer_max { 
+    if !phase {
+        phase = 1;
+        timer = -phase_delay;
+        x = x_end;
+        y = y_end;
+        image_angle += 180;
+        
+        room_goto(action)
+        
+    }else {
+        instance_destroy();
+    }
 }
 
-if(line &lt;= 2)
-   transition += (min(2, line) - transition)*0.1;
+if !phase {
+image_xscale = ease_in_quartic(max(timer, 0)/timer_max) * size_end;
+}else{
+image_xscale = size_end - ease_out_quartic(max(timer, 0)/timer_max) * size_end;
 
-if(char != len)
-   char = min(len, char + 0.75);
+if (device_mouse_check_button_pressed(0, mb_left) &amp;&amp; timer = 0) pass = 1;
+}
 </string>
           </argument>
         </arguments>
@@ -105,30 +117,43 @@ if(char != len)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var len = 0;
+            <string>surf = surface_make_clip( surf, room_width, room_height);
+draw_sprite_ext(spr_long_part,image_index,x,y,image_xscale,image_yscale,image_angle,image_blend,image_alpha);
+surface_reset_target();
 
-draw_set_color($000000);
+shader_set_clip_mask( surf, 0, 0);
+
+draw_sprite(spr_dyk_backgorund, 0, 0, 0);
+draw_set_alpha(0.05);
+draw_background_tiled(bg_dyk_loop, background_shift_x, background_shift_y);
 draw_set_alpha(1);
-draw_set_font(f_nanumgothic);
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
 
-if(line &lt; 4) {
-   var base = floor(transition), frc = transition - base;
-   len = string_length(lineText[line]);
-   if(base != -1)
-      draw_sprite(spr_cutscene_image, base, 0, 0);
-   draw_set_alpha(frc);
-   draw_sprite(spr_cutscene_image, base + 1, 0, 0);
-   draw_set_alpha(1);
-   draw_window_ext(spr_textbar, 0, 76, room_height - 315, 1127, 239, $ffffff, 0.65);
-   draw_text(
-      100, room_height - 291,
-      string_copy(lineText[line], 1, floor(min(len, char + 1)))
-   );
-   if(char == len)
-      draw_sprite(spr_cutscene_continue, 0, room_width - 100, room_height - 100);
+background_shift_x += lengthdir_x(0.5,image_angle-phase*180);
+background_shift_y += lengthdir_y(0.5,image_angle-phase*180);
+draw_sprite(spr_dyk_character, 0, room_width / 2, room_height / 2 + 45);
+
+draw_set_halign(fa_middle);
+draw_set_valign(fa_top);
+draw_set_color($f2f2f2);
+//draw_set_font(f_namsan_general);
+draw_set_font(f_namsan_header);
+draw_text_transformed(room_width / 2, room_height / 2 + 55, "알고 계셨나요?", 0.6, 0.6, 0);
+
+draw_set_color($c68af2);
+draw_set_font(f_namsan_header);
+var w = string_width("이 스트리머는 배가 고픕니다.");
+var h = string_height("이 스트리머는 배가 고픕니다.");
+draw_window( spr_dyk_textbar, 0, round(room_width / 2 - w * 0.8 / 2 - 75), round(room_height / 2 + 110), round(w * 0.8) + 150, h + 15)
+draw_text_transformed(room_width / 2, room_height / 2 + 125, "이 스트리머는 배가 고픕니다.", 0.8, 0.8, 0);
+
+if (phase &amp;&amp; timer &gt;= 0) {
+    draw_set_halign(fa_right);
+    draw_set_valign(fa_bottom);
+    draw_set_color($f2f2f2);
+    draw_set_alpha(abs(lengthdir_y(1.2, pass_alpha++))+0.01);
+    draw_text_transformed(room_width - 5, room_height - 5, "아무 곳이나 클릭하세요.", 0.5, 0.5, 0);
 }
+shader_reset();
 </string>
           </argument>
         </arguments>

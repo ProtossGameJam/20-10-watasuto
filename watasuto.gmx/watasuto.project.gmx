@@ -87,6 +87,12 @@
       <sprite>sprites\spr_emoji_rank</sprite>
       <sprite>sprites\spr_emoji_cursor</sprite>
     </sprites>
+    <sprites name="did_you_know">
+      <sprite>sprites\spr_dyk_character</sprite>
+      <sprite>sprites\spr_dyk_backgorund</sprite>
+      <sprite>sprites\spr_dyk_textbar</sprite>
+      <sprite>sprites\spr_long_part</sprite>
+    </sprites>
   </sprites>
   <backgrounds name="background">
     <background>background\bg_title</background>
@@ -96,6 +102,7 @@
     <background>background\bg_game_select</background>
     <background>background\bg_result</background>
     <background>background\bg_qna</background>
+    <background>background\bg_dyk_loop</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
@@ -140,9 +147,13 @@
       <script>scripts\ease_in_out_bounce.gml</script>
     </scripts>
     <script>scripts\shader_set_clip_rect.gml</script>
+    <script>scripts\surface_make_clip.gml</script>
+    <script>scripts\shader_set_clip_mask.gml</script>
+    <script>scripts\room_change.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_clip_rect.shader</shader>
+    <shader type="GLSLES">shaders\shd_clip_mask.shader</shader>
   </shaders>
   <fonts name="fonts">
     <font>fonts\f_nanumgothic</font>
@@ -162,6 +173,7 @@
     <object>objects\o_game_unboxing</object>
     <object>objects\o_game_qna</object>
     <object>objects\o_result</object>
+    <object>objects\o_room_changer</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_watasuto_title</room>

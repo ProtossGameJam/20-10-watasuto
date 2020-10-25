@@ -16,6 +16,7 @@ switch(spr) {
     case spr_textbar:
     case spr_stage_title:
     case spr_stage_thumb:
+    case spr_dyk_textbar:
         var l_w = 10;
         var r_w = 10;
         var t_h = 10;
