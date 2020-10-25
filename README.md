@@ -1,3 +1,18 @@
-# [막판스퍼트!!!!!!](https://docs.google.com/spreadsheets/d/1PvbgovbX0v3tHckSIc5fjydTr6efI1Ref1C--UNn1s8/edit#gid=0)
+# (임시 리드미) 평범한 게이머인 내가 이세계에서는 인기 초절정 스트리머?!
 
-[노션 링크](https://www.notion.so/4d814b01f8c24e0995ece7df68fbfda3?v=4fa70bbd43674b6faae408437561f1d5) / [기획서 링크](https://docs.google.com/presentation/d/1VVniGKf3ACnAqhPIZoDcUT7QY1IOemBLC0CZNIJVDvo/edit?usp=sharing)
+여유 생기면 제대로 편집할게요
+
+* 무이 wowhaydi@gmail.com / https://www.linkedin.com/in/sungryusong
+* 산소 @handlessbrain
+* 잇창명 @EatChangmyeong
+* K00sin (작곡)
+* 목소리 녹음
+	* 히가츠류
+	* 이승
+	* 도드람쥐
+	* K00sin
+	* 산소
+* 나눔고딕
+* KCC무럭무럭
+* 서울남산체
+* (이외 copyright-free SFX)
