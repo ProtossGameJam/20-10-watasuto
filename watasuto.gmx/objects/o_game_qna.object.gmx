@@ -54,9 +54,6 @@ if(chat[0] != '')
    chat_set_key(chat[0]);
 if(burst[0] != '')
    chat_burst(burst[0]);
-
-// mock name for testing
-global.name = '잇창명';
 </string>
           </argument>
         </arguments>
