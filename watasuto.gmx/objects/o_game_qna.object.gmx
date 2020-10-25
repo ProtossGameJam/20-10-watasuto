@@ -32,49 +32,31 @@ anim1 = 0;
 anim2 = 0;
 animF = 0;
 history[0] = -1;
+historyText[0] = '';
 answered = 0;
 
 line = 0;
 char = 0;
-transcript = '';
 answer = array_create(3);
+answerText = array_create(3);
 correct = array_create(3);
+qchat = array_create(3);
+qburst = array_create(3);
+chatLog = array_create(0);
 image_single = 0;
+sfChat = -1;
 
-lines[0] = '시청자 여러분 하이하이~ 오늘 해볼 것은...';
-lines[1] = '제가 방송을 시작한 지 벌써 7주째예요!';
-lines[2] = '그래서 7주차 기념 Q&amp;A 코너를 준비해봤으니까 질문 많이 해주세요~';
-lines[3] = '질문은 도네로... 앗! 벌써 질문이 들어왔어요~';
-lines[4] = '첫 번째 질문!';
-lines[5] = '`[질문 1]`A`1`B`0`';
-lines[6] = '두 번째 질문이 바로 들어왔네요~ 어디어디...';
-lines[7] = '`[질문 2]`A`1`B`0`';
-lines[8] = '으악, 질문이 연달아서 오고 있어요! 빨리 확인해볼게요!';
-lines[9] = '`[질문 3]`A`1`B`0`';
-lines[10] = '그럼 다음 질문도 빠르게 확인해보겠습니다!';
-lines[11] = '`[질문 4]`A`1`B`0`C`1`';
-lines[12] = '다음 질문은 조금 어려워 보이는데...';
-lines[13] = '`[질문 5]`A`1`B`0`';
-lines[14] = '이렇게 질문이 많이 들어올 줄 몰랐는데... 정말 감사해요!';
-lines[15] = '`[질문 6]`A`1`B`0`';
-lines[16] = '질문 한 번만 더 받구 방송 종료할게요~';
-lines[17] = '`[질문 7]`A`1`B`0`';
-lines[18] = '그래도 조금 미련이 생기니까 정말 마지막으로 한 번만 더 받아볼까요?';
-lines[19] = '...';
-lines[20] = '좋아요! 정말 마지막 질문! 어디보자...';
-lines[21] = '`[질문 8]`A`1`B`0`C`1`';
-lines[22] = '오늘 방송 봐주셔서 너무 감사해요! 7주라는 긴 시간 동안 정말 즐거웠어요!';
-lines[23] = '옆에서 많이 도와주셨던 매니저님도... 정말 감사하고 있어요!';
-lines[24] = '앞으로도 잘 부탁드려요!';
-lines[25] = '그럼 구독과 좋아요~ 알림 설정까지 꼭 부탁드려요~ 바이바이!';
-response[0] = '으아... 질문이 너무해요!';
-response[1] = '(앗... 잘못 대답했나 봐...)';
-response[2] = '다메다메~ 다메요~~~((((；′д｀)))';
-response[3] = '(후훗! 대답이 정해져 있는 질문이었는걸.)';
-response[4] = '재밌는 질문이었습니다!';
-response[5] = '우효~~ 겟또다제q(≧▽≦q)';
-
+event_user(0);
 transcript = lines[0];
+
+chat_start();
+if(chat[0] != '')
+   chat_set_key(chat[0]);
+if(burst[0] != '')
+   chat_burst(burst[0]);
+
+// mock name for testing
+global.name = '잇창명';
 </string>
           </argument>
         </arguments>
@@ -114,13 +96,23 @@ switch(mode) {
             line++;
             char = 0;
             image_single = 0;
-            if(line == array_length_1d(lines)) // end of qna
+            if(line == array_length_1d(lines)) { // end of qna
+               chat_stop();
                room_goto(r_main);
-            else if(string_char_at(lines[line], 1) == '`') { // question?
+            } else if(string_char_at(lines[line], 1) == '`') { // question?
                mode = 1;
-               qna_decode(lines[line]);
-            } else
+               qna_decode(line);
+               if(qchat[0] != '')
+                  chat_set_key(qchat[0]);
+               if(qburst[0] != '')
+                  chat_burst(qburst[0]);
+            } else {
                transcript = lines[line];
+               if(chat[line] != '')
+                  chat_set_key(chat[line]);
+               if(burst[line] != '')
+                  chat_burst(burst[line]);
+            }
          }
    break;
    case 1:
@@ -140,9 +132,15 @@ switch(mode) {
             sel = 2;
          
          if(sel != -1) {
-            history[answered++] = sel;
-            transcript = answer[sel] + '!';
+            var yes = correct[sel] == 1;
+            history[answered] = sel;
+            historyText[answered++] = answerText[sel];
+            transcript = answer[sel];
             mode = 2;
+            if(qchat[2 - yes] != '')
+               chat_set_key(qchat[2 - yes]);
+            if(qburst[2 - yes] != '')
+               chat_burst(qburst[2 - yes]);
          }
       }
    break;
@@ -171,6 +169,113 @@ if(mode != 1) {
    anim1 += (1 - anim1)/12;
    anim2 += (anim1 - anim2)/12;
 }
+
+if(random(1) &lt; 1/36) {
+   var str = chat_get();
+   if(!is_undefined(str)) {
+      for(var i = min(19, array_length_1d(chatLog)); i &gt; 0; i--)
+         chatLog[i] = chatLog[i - 1];
+      chatLog[0] = str;
+   }
+}
+if(random(1) &lt; 1/8) {
+   var str = chat_get_burst();
+   if(!is_undefined(str)) {
+      for(var i = min(19, array_length_1d(chatLog)); i &gt; 0; i--)
+         chatLog[i] = chatLog[i - 1];
+      chatLog[0] = str;
+   }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="7" enumb="10">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Q&amp;A database
+
+lines = array_create(28);
+chat = array_create(28);
+burst = array_create(28);
+for(var i = 0; i &lt; 28; i++) {
+   chat[i] = '';
+   burst[i] = '';
+}
+
+lines[0] = '시청자 여러분 하이하이~ 오늘 해볼 것은...';
+chat[0] = 'hi';
+lines[1] = '제가 방송을 시작한 지 벌써 7주째예요!';
+lines[2] = '그래서 7주차 기념 Q&amp;A 코너를 준비해봤으니까 질문 많이 해주세요~';
+chat[2] = 'qa';
+lines[3] = '질문은 도네로... 앗! 벌써 질문이 들어왔어요~';
+lines[4] = '첫 번째 질문!';
+lines[5] = '`이탈리아의 수도는?`베네치아!`베네치아`0`로마!`로마`1`';
+chat[5] = 'qaitaly`correct`wrong';
+burst[5] = 'qaitaly_``';
+lines[6] = '두 번째 질문이 바로 들어왔네요~ 어디어디...';
+lines[7] = '캠퍼스라고 열 번 외쳐보세요...?';
+chat[7] = 'qacampus';
+burst[7] = 'qacampus';
+lines[8] = '캠퍼스 캠퍼스 캠퍼스 캠퍼스 캠퍼스 캠퍼스 캠퍼스 캠퍼스 캠퍼스 캠퍼스';
+lines[9] = '`각도 잴 때 뭐 쓰죠?`컴퍼스죠~`컴퍼스`0`각도기죠~`각도기`1`';
+chat[9] = '`qacampuscorrect`qacampuswrong';
+burst[9] = '``';
+lines[10] = '으악, 질문이 연달아서 오고 있어요! 빨리 확인해볼게요!';
+lines[11] = '`둘 중에 고양이가 아닌 게 뭘까요~?`스핑크스요!`스핑크스`1`모르가나요!`모르가나`0`';
+chat[11] = 'qasphinx`qasphinxcorrect`qasphinxwrong';
+burst[11] = 'qasphinx_``';
+lines[12] = '그럼 다음 질문도 빠르게 확인해보겠습니다!';
+lines[13] = '`부먹찍먹 뭐가 좋아요?`부먹이 좋아요!`부먹`0`찍먹이 좋아요!`찍먹`0`그걸로 싸울 시간에 하나라도 더 먹어야죠~`처먹`1`';
+chat[13] = 'qatangsuyuk`qatangsuyukcorrect`qatangsuyukwrong';
+burst[13] = 'qatangsuyuk``';
+lines[14] = '다음 질문은 조금 어려워 보이는데...';
+lines[15] = '`매니저님 머리에 이모지 너무 귀여운데 뭔가요?`[hardcoded]`[hardcoded]`0`[hardcoded]`[hardcoded]`1`';
+chat[15] = 'qaemoji`qaemojicorrect`qaemojiwrong';
+burst[15] = '``';
+lines[16] = '이렇게 질문이 많이 들어올 줄 몰랐는데... 정말 감사해요!';
+lines[17] = '`습도 낮추는 게 제습기였나요 가습기였나요???`가습기죠!`가습기`0`제습기죠!`제습기`1`';
+chat[17] = 'qahygro`correct`wrong';
+burst[17] = 'qahygro_``';
+lines[18] = '질문 한 번만 더 받구 방송 종료할게요~';
+chat[19] = 'qalate';
+lines[19] = '`산소의 원소 기호는?`O였던 것 같아요!`O`1`H였던 것 같아요!`H`0`';
+chat[19] = 'qaoxygen`correct`wrong';
+burst[19] = 'qaoxygen_';
+lines[20] = '그래도 조금 미련이 생기니까 정말 마지막으로 한 번만 더 받아볼까요?';
+chat[19] = 'qalate';
+lines[21] = '...';
+lines[22] = '좋아요! 정말 마지막 질문! 어디보자...';
+lines[23] = '`3 이상의 n에 대해 a^n+b^n=c^n의 자연수 해가 존재하는가?`예???`예???`0`뭐라구요???`뭐라구요???`0`아 저 알아요 존재하지 않아요`존재하지 않는다`1`';
+chat[23] = 'qafermat`qafermatcorrect`qafermatwrong';
+burst[23] = 'qafermat';
+lines[24] = '오늘 방송 봐주셔서 너무 감사해요! 7주라는 긴 시간 동안 정말 즐거웠어요!';
+chat[24] = 'qaend';
+lines[25] = '옆에서 많이 도와주셨던 매니저님도... 정말 감사하고 있어요!';
+lines[26] = '앞으로도 잘 부탁드려요!';
+lines[27] = '그럼 구독과 좋아요~ 알림 설정까지 꼭 부탁드려요~ 바이바이!';
+
+response[0] = '으아... 질문이 너무해요!';
+response[1] = '(앗... 잘못 대답했나 봐...)';
+response[2] = '다메다메~ 다메요~~~((((；′д｀)))';
+response[3] = '(후훗! 대답이 정해져 있는 질문이었는걸.)';
+response[4] = '재밌는 질문이었습니다!';
+response[5] = '우효~~ 겟또다제q(≧▽≦q)';
 </string>
           </argument>
         </arguments>
@@ -194,6 +299,7 @@ if(mode != 1) {
           <argument>
             <kind>1</kind>
             <string>var
+   chatScale = (3 - animF)/3,
    scale = (4 + animF)/5,
    replay = true,
    thirdSpr = spr_qna_button3;
@@ -208,9 +314,32 @@ draw_sprite(spr_qna_table, 0, 0, room_height);
 draw_sprite_ext(
    spr_qna_chat, 0,
    1013, 358,
-   (3 - animF)/3, (3 - animF)/3, 0,
+   chatScale, chatScale, 0,
    $ffffff, 1 - animF
 );
+
+if(!surface_exists(sfChat))
+   sfChat = surface_create(416, 483);
+surface_set_target(sfChat);
+draw_clear_alpha($ffffff, 0);
+draw_set_alpha(1);
+draw_set_font(f_nanumgothic);
+draw_set_halign(fa_left);
+draw_set_valign(fa_bottom);
+var logLen = array_length_1d(chatLog);
+for(var i = 0; i &lt; logLen; i++) {
+   draw_set_colour($ffc0c0);
+   draw_text(0, 483 - 24*i, '[user]');
+   draw_set_colour($ffffff);
+   draw_text(100, 483 - 24*i, chatLog[i]);
+}
+surface_reset_target();
+draw_surface_ext(
+   sfChat,
+   1013 - 208*chatScale, 358 - 301*chatScale,
+   chatScale, chatScale, 0,
+   $ffffff, 1 - animF
+)
 
 draw_set_colour($000000);
 draw_set_font(f_nanumgothic);
@@ -226,7 +355,7 @@ draw_sprite_ext(
 );
 draw_text_transformed(
    314 - 90*scale, 383 - 102*scale,
-   answer[0],
+   answerText[0],
    scale, scale, 0
 );
 
@@ -238,7 +367,7 @@ draw_sprite_ext(
 );
 draw_text_transformed(
    966 + 90*scale, 383 - 102*scale,
-   answer[1],
+   answerText[1],
    scale, scale, 0
 );
 
@@ -251,7 +380,7 @@ if(replay &amp;&amp; correct[2] != -1) {
    );
    draw_text_transformed(
       372 - 90*scale, 506 - 102*scale,
-      answer[2],
+      answerText[2],
       scale, scale, 0
    );
 }
