@@ -9,7 +9,7 @@
 (인자 없음)
 */
 
-var key, text, rd = random(1), lst;
+var key, rd = random(1), lst;
 with(o_chat_system) {
    if(irandom(1))
       key = stq[irandom(119)];

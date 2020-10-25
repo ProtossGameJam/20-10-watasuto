@@ -9,7 +9,7 @@ burst 풀에서 무작위 채팅 메시지를 생성합니다. undefined를 반�
 (인자 없음)
 */
 
-var key, text, rd = random(1), lst;
+var key, rd = random(1), lst;
 with(o_chat_system) {
    key = bq[irandom(179)];
    if(!ds_map_exists(db, key))
