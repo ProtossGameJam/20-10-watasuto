@@ -206,7 +206,6 @@
     <object>objects\o_ending</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\r_qna_game</room>
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_contract</room>
@@ -217,6 +216,7 @@
     <room>rooms\r_callbox_game</room>
     <room>rooms\r_hammer_game</room>
     <room>rooms\r_unboxing_game</room>
+    <room>rooms\r_qna_game</room>
     <room>rooms\r_result</room>
   </rooms>
   <help>
