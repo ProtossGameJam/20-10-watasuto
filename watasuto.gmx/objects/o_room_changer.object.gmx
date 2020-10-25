@@ -52,6 +52,8 @@ background_shift_y = 0;
 
 surf = -1;
 
+audio_stop_all();
+
 var info, joke;
 info[0] = "매니저씨는 '스테이크는 역시 미디움 레어지!'라고 생각합니다.";
 info[1] = "스트리머쨩은 MBTI를 믿지 않는다고 합니다.";
@@ -128,7 +130,7 @@ if !phase {
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="73">
       <action>
         <libid>1</libid>
         <id>603</id>

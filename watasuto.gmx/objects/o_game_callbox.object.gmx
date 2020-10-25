@@ -255,6 +255,7 @@ for(var i = 0; i &lt; 3; i++) {
 }
 wy -= 16*sqr(wrongAnim/20);
 
+draw_set_alpha(1);
 draw_sprite(spr_game_box, 0, 0, 0);
 if (floor(show_play / 30) mod 2) draw_sprite(spr_game_play, 0, 0, 0);
 show_play++;
