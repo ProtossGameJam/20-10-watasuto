@@ -85,6 +85,33 @@ scroll_area_height = 415;
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// easing draw coordinates
+
+if (instance_exists(o_room_changer)) exit;
+
+dy = sy + round((ey - sy) * ease_out_quintic(time/time_max));
+
+time = min(time + 1, time_max);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>/// touch action
 
 var click = device_mouse_check_button_pressed(0, mb_left);
@@ -155,33 +182,6 @@ if (touch &amp;&amp; unclick) {
 }
 
  scrolled_y -= scroll_y_speed;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// easing draw coordinates
-
-if (instance_exists(o_room_changer)) exit;
-
-dy = sy + round((ey - sy) * ease_out_quintic(time/time_max));
-
-time = min(time + 1, time_max);
 </string>
           </argument>
         </arguments>

@@ -21,6 +21,13 @@
       <sprite>sprites\spr_cutscene_continue</sprite>
       <sprite>sprites\spr_cutscene_image</sprite>
       <sprite>sprites\spr_contract</sprite>
+      <sprites name="ending">
+        <sprite>sprites\spr_ed1_true</sprite>
+        <sprite>sprites\spr_ed1_bad</sprite>
+        <sprite>sprites\spr_ed1_good</sprite>
+        <sprite>sprites\spr_ed2_bad</sprite>
+        <sprite>sprites\spr_ed_gameover</sprite>
+      </sprites>
     </sprites>
     <sprites name="main">
       <sprite>sprites\spr_main_room</sprite>
@@ -195,12 +202,14 @@
     <object>objects\o_game_qna</object>
     <object>objects\o_result</object>
     <object>objects\o_room_changer</object>
+    <object>objects\o_ending</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_contract</room>
     <room>rooms\r_main</room>
+    <room>rooms\r_ending</room>
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>
     <room>rooms\r_callbox_game</room>

@@ -121,7 +121,7 @@ if !phase {
         var bgm = get_bgm(room);
         if (!audio_is_playing(bgm)) {
             audio_play_sound(bgm, 0, true);
-            audio_sound_gain(bgm, 1, 400);
+            audio_sound_gain(bgm, 1, 500);
         }
     }
 }

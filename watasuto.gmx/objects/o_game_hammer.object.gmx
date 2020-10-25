@@ -31,7 +31,7 @@ success = 0;
 failure = 0;
 
 timer = 0;
-timer_max = room_speed * 30;
+timer_max = room_speed * 60;
 
 moles = ds_list_create();
 

@@ -7,6 +7,6 @@ i.action = argument0;
 var bgm = get_bgm(room);
 if (bgm != get_bgm(argument0)) {
     if (audio_is_playing(bgm)) {
-        audio_sound_gain(bgm, 0, 400);
+        audio_sound_gain(bgm, 0, 1000);
     }
 }

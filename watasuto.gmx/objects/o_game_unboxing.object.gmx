@@ -31,6 +31,9 @@ spr_h = sprite_get_height(spr_unboxing_box);
 left = room_width / 2 - spr_w / 2 + 40;
 top = room_height / 2 - spr_h / 2 + 40;
 
+timer = 0;
+timer_max = room_speed * 60; // 임시 게임오버 조건
+
 box_opening = 0;
 box_passing = 0;
 box_pass_x = 0;
@@ -357,6 +360,29 @@ switch(cutting) {
 if (!cut_start_spot &amp;&amp; !cutting) {
     draw_sprite(spr_emoji_cursor, 2, _mouse_x, _mouse_y);
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_colour($0040ff);
+draw_set_alpha(1);
+draw_rectangle(74, 669, 74 + 1132*timer/timer_max, 688, false);
 </string>
           </argument>
         </arguments>
