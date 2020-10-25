@@ -122,7 +122,7 @@ draw_sprite_ext(spr_long_part,image_index,x,y,image_xscale,image_yscale,image_an
 surface_reset_target();
 
 shader_set_clip_mask( surf, 0, 0);
-
+draw_set_alpha(1);
 draw_sprite(spr_dyk_backgorund, 0, 0, 0);
 draw_set_alpha(0.05);
 draw_background_tiled(bg_dyk_loop, background_shift_x, background_shift_y);

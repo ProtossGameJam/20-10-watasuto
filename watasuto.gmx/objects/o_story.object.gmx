@@ -34,6 +34,7 @@ lineText[3] = '하지만 그 꿈을 이뤄 줄 수 있는 이세계로 온다면
 line = 0;
 char = 0;
 transition = -1;
+iseAnim = 0;
 </string>
           </argument>
         </arguments>
@@ -63,27 +64,31 @@ transition = -1;
       keyboard_check_pressed(vk_enter),
    len = string_length(lineText[line]);
    
-if (instance_exists(o_room_changer)) exit;
+if(instance_exists(o_room_changer))
+   exit;
 
 if(next) {
    if(char &lt; len)
       char = len;
-   else {
-      line++;
+   else if(line != 3 || iseAnim &gt;= 90) {
       char = 0;
-      if(line == 4) {
+      if(++line == 4) {
          watasuto_init();
          room_change(r_main);
-      } else if(line == 3)
-         transition = 3;
+      }
    }
 }
 
-if(line &lt;= 2)
+if(line == 3) {
+   if(iseAnim != 150 &amp;&amp; ++iseAnim == 60)
+      transition = 3;
+   if(iseAnim &gt;= 90 &amp;&amp; char != len)
+      char = min(len, char + 0.75);
+} else {
    transition += (min(2, line) - transition)*0.1;
-
-if(char != len)
-   char = min(len, char + 0.75);
+   if(char != len)
+      char = min(len, char + 0.75);
+}
 </string>
           </argument>
         </arguments>
@@ -125,11 +130,18 @@ if(line &lt; 4) {
    draw_window_ext(spr_textbar, 0, 76, room_height - 315, 1127, 239, $ffffff, 0.65);
    draw_text(
       100, room_height - 291,
-      string_copy(lineText[line], 1, floor(min(len, char + 1)))
+      string_copy(lineText[line], 1, floor(char))
    );
    if(char == len)
       draw_sprite(spr_cutscene_continue, 0, room_width - 100, room_height - 100);
 }
+
+draw_set_colour($ffffff);
+if(iseAnim &lt; 60)
+   draw_set_alpha(min(1, iseAnim/20));
+else
+   draw_set_alpha((150 - iseAnim)/90);
+draw_rectangle(0, 0, room_width, room_height, false);
 </string>
           </argument>
         </arguments>
