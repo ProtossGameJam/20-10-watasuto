@@ -217,7 +217,7 @@ for(var i = 0; i &lt; array_length_1d(minigames); i++) {
         draw_set_color($3e3e3e);
         draw_rectangle(dx - 235, round(scrolled_y) + dy + 220 + each_height * i, dx - 107 + 335 + 5, round(scrolled_y) + dy + 225 + each_height * i + each_height - 10, 0);
     }else {
-        draw_sprite_ext(spr_stage_explain, 0, dx - 225 + 128, round(scrolled_y) + dy + 225 + each_height * i + 62, 1, 42, 0, c_white, 1);
+        draw_sprite_ext(spr_stage_explain, 0, dx - 225 + 128, round(scrolled_y) + dy + 225 + each_height * i + 62, 1, 42, 0, c_white, time/time_max);
     }
     
     draw_set_alpha(time/time_max);

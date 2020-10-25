@@ -393,9 +393,11 @@ for(var i=0; i&lt;viewer_amount; i++){
     
     draw_set_font(f_nanumgothic);
     draw_set_valign(fa_top)
-    draw_text(left + 35, top + viewer_height*i + 4, viewer[? "name"]);
+    draw_text(left + 35, top + viewer_height*i + 2, viewer[? "name"]);
+    shader_set_clip_rect(left + 35, top + viewer_height*i, left + 35 + 302, top + viewer_height*i + viewer_height);
     draw_set_color(c_gray);
-    draw_text(left + 35 + string_width(viewer[? "name"]) + 5, top + viewer_height*i + 4, viewer[? "chat"]);
+    draw_text(left + 35 + string_width(viewer[? "name"]) + 4, top + viewer_height*i + 1, viewer[? "chat"]);
+    shader_reset();
 }
 </string>
           </argument>
