@@ -185,6 +185,7 @@ db[?'bad'] = 5; // 악플
 // Q&amp;A-specific
 db[?'correct'] = 2; // 누가 봐도 [정답]이지
 db[?'wrong'] = 5; // 이걸 틀린다고?
+db[?'dunno'] = 3; // 대답 안 했음
 db[?'qa'] = 4; // 재밌겠다 ㅋㅋ
 db[?'qaitaly'] = 3; // 이탈리아 수도 문제
 db[?'qaitaly_'] = 2;
@@ -287,6 +288,9 @@ db[?'wrong3'] = '능 지 차 이';
 db[?'wrong3*'] = 0.6;
 db[?'wrong4'] = '능지차이';
 db[?'wrong4*'] = 0.6;
+db[?'dunno0'] = '엥 왜 대답 못하심?';
+db[?'dunno1'] = '어려운 거 내지 말자 [ㅠ 1 2]';
+db[?'dunno2'] = '질문자 누구냐';
 db[?'qa0'] = 'ㅇ0ㅇ';
 db[?'qa0*'] = 1.5;
 db[?'qa1'] = 'Q&amp;A 재밌겠다';
@@ -421,6 +425,7 @@ keys[36] = 'qafermatwrong';
 keys[37] = 'qafermatcorrect';
 keys[38] = 'qaend';
 keys[39] = 'bad';
+keys[40] = 'dunno';
 var mpLen = array_length_1d(keys);
 
 for(var i = 0; i &lt; mpLen; i++) {
