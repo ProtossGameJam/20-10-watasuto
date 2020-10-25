@@ -5,11 +5,13 @@ var bgm;
 switch ( argument0 ) {
     case r_watasuto_title:
     case r_story:
+    case r_contract:
     case r_main:
         bgm = sound_bgm_main;
         break;
     case r_select:
     case r_result:
+    case r_qna_game:
         bgm = sound_bgm_result;
         break;
     case r_chatting_game:

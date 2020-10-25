@@ -88,6 +88,8 @@ show_play = 0;
             <kind>1</kind>
             <string>/// chatting life cycle
 
+if (instance_exists(o_room_changer)) exit;
+
 if (chatting_regen &gt; 0)
     chatting_regen--;
 else {
@@ -308,6 +310,50 @@ show_play++;
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// test draw
+draw_set_valign(fa_top)
+draw_set_font(f_nanumgothic);
+draw_set_color(c_gray);
+draw_set_alpha(1);
+draw_text(25, 25, "잡은 악플러 : "+string(block_bad)+"
+잘못 잡은 시청자 : "+string(block_wrong));
+
+draw_set_valign(fa_bottom)
+draw_text(45, room_height-25, "채팅 생성간격 : "+string(chatting_regen_delay/room_speed)+"초
+채팅 생성간격 변화범위 : "+string(floor(chatting_regen_delay_var*100))+"%
+채팅 유지시간 : "+string(chatting_life/room_speed)+"초
+악플 확률 : "+string(chatting_bad_ratio)+"%
+악플 확률 보정 최대 횟수 : (100÷악플 확률×"+string(chatting_bad_ratio_adjust_max)+") ("+string(100/chatting_bad_ratio*chatting_bad_ratio_adjust_max)+"회)");
+
+for(var i=0; i&lt;5; i++){
+    draw_set_color(c_dkgray)
+    draw_rectangle(23, room_height-28-24*i, 23+22, room_height-28-24*i-22,1)
+    if point_in_rectangle(device_mouse_x(0), device_mouse_y(0), 23, room_height-28-24*i-22, 23+22, room_height-28-24*i) {
+        draw_set_color(c_gray)
+        draw_rectangle(23+4, room_height-28-24*i-4, 23+22-4, room_height-28-24*i-22+4,0)
+        draw_circle(device_mouse_x(0), device_mouse_y(0), 17, 1);
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>/// draw viewers
 
 var _mouse_x = device_mouse_x(0);
@@ -333,56 +379,13 @@ for(var i=0; i&lt;viewer_amount; i++){
         else draw_set_color(c_dkgray);
         
         draw_set_font(f_nanumgothic);
+        draw_set_halign(fa_left)
         draw_set_valign(fa_top)
         draw_text(left + 35, top + viewer_height*i + 4, viewer[? "name"]);
         draw_set_color(c_gray);
         draw_text(left + 35 + string_width(viewer[? "name"]) + 5, top + viewer_height*i + 4, viewer[? "chat"]);
     }
     
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// test draw
-draw_set_valign(fa_top)
-draw_set_font(f_nanumgothic);
-draw_set_color(c_gray);
-draw_set_alpha(1);
-draw_text(25, 25, "잡은 악플러 : "+string(block_bad)+"
-잘못 잡은 시청자 : "+string(block_wrong));
-
-draw_set_valign(fa_bottom)
-draw_text(45, room_height-25, "채팅 생성간격 : "+string(chatting_regen_delay/room_speed)+"초
-채팅 생성간격 변화범위 : "+string(floor(chatting_regen_delay_var*100))+"%
-채팅 유지시간 : "+string(chatting_life/room_speed)+"초
-악플 확률 : "+string(chatting_bad_ratio)+"%
-악플 확률 보정 최대 횟수 : (100÷악플 확률×"+string(chatting_bad_ratio_adjust_max)+") ("+string(100/chatting_bad_ratio*chatting_bad_ratio_adjust_max)+"회)");
-
-for(var i=0; i&lt;5; i++){
-    draw_set_color(c_dkgray)
-    draw_rectangle(23, room_height-28-24*i, 23+22, room_height-28-24*i-22,1)
-    if point_in_rectangle(device_mouse_x(0), device_mouse_y(0), 23, room_height-28-24*i-22, 23+22, room_height-28-24*i) {
-        draw_set_color(c_gray)
-        draw_rectangle(23+4, room_height-28-24*i-4, 23+22-4, room_height-28-24*i-22+4,0)
-        draw_circle(device_mouse_x(0), device_mouse_y(0), 17, 1);
-    }
 }
 </string>
           </argument>

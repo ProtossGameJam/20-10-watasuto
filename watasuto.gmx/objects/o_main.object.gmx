@@ -234,7 +234,7 @@ x = schedule_x;
 y = schedule_y;
 
 if click &amp;&amp; collision_point(_mouse_x, _mouse_y, self, 1, 0) {
-    room_goto(r_select);
+    room_change(r_select);
 }
 
 mask_index = noone;

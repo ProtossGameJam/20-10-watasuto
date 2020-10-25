@@ -29,14 +29,16 @@
 minigameRooms[0] = r_callbox_game;
 minigames[1] = '실시간 채팅 관리';
 minigameRooms[1] = r_chatting_game;
-minigames[2] = '악플러 머리 꽁하고 때리기 게임';
-minigameRooms[2] = r_hammer_game;
-minigames[3] = '언 - 빡싱 게임';
-minigameRooms[3] = r_unboxing_game;
-minigames[4] = 'Q&amp;A';
-minigameRooms[4] = r_qna_game;
-
-selected = 0;
+if (global.week &gt;= 3) {
+    minigames[2] = '악플러 머리 꽁하고 때리기 게임';
+    minigameRooms[2] = r_hammer_game;
+}
+if (global.week &gt;= 5) {
+    minigames[3] = '언 - 빡싱 게임';
+    minigameRooms[3] = r_unboxing_game;
+}
+minigames[array_length_1d(minigames)] = 'Q&amp;A';
+minigameRooms[array_length_1d(minigameRooms)] = r_qna_game;
 
 // sx = room_width / 2
 sy = room_height / 2;
@@ -50,13 +52,16 @@ ey = 2;
 time = 0;
 time_max = 45;
 
+each_height = 128 + 15;
+
+hover = -1;
 
 // scroll
 touch = 0;
 scrolling = 0;
 scrolled_y = 0;
 scroll_y_speed = 0;
-scrolling_height = 128;
+scrolling_height = each_height * array_length_1d(minigames);
 scroll_area_height = 415;
 </string>
           </argument>
@@ -80,63 +85,7 @@ scroll_area_height = 415;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var len = array_length_1d(minigames);
-
-if(keyboard_check_pressed(vk_down) &amp;&amp; selected &lt; len - 1)
-   selected++;
-if(keyboard_check_pressed(vk_up) &amp;&amp; selected &gt; 0)
-   selected--;
-if(keyboard_check_pressed(vk_enter))
-   room_goto(minigameRooms[selected]);
-if(keyboard_check_pressed(vk_escape))
-   room_goto(r_main);
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// easing draw coordinates
-
-
-dy = sy + round((ey - sy) * ease_out_quintic(time/time_max));
-
-time = min(time + 1, time_max);
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// touch scroll
+            <string>/// touch action
 
 var click = device_mouse_check_button_pressed(0, mb_left);
 var unclick = device_mouse_check_button_released(0, mb_left);
@@ -156,12 +105,8 @@ if (touch) {
     
     if (!scrolling &amp;&amp; (point_distance(scroll_sx, scroll_sy, _mouse_x, _mouse_y) &gt; 8 || touch &gt; 10)) {
         scrolling = 1;
+        hover = -1;
         _mouse_pre_y = _mouse_y;
-    }
-    
-    if (unclick) {
-        touch = 0;
-        scrolling = 0;
     }
 }
 
@@ -190,7 +135,53 @@ if (scrolling) {
     
 }
 
+if (!scrolling) {
+    for(var i = 0; i &lt; array_length_1d(minigames); i++) {
+        if point_in_rectangle(_mouse_x, _mouse_y, dx - 235, round(scrolled_y) + dy + 220 + each_height * i, dx - 107 + 335 + 5, round(scrolled_y) + dy + 225 + each_height * i + each_height - 10) {
+            hover = i;
+            break;
+        }
+        hover = -1;
+    }
+}
+
+if (hover &gt; -1 &amp;&amp; !scrolling &amp;&amp; unclick) {
+    room_change(minigameRooms[hover]);
+}
+
+if (touch &amp;&amp; unclick) {
+    touch = 0;
+    scrolling = 0;
+}
+
  scrolled_y -= scroll_y_speed;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// easing draw coordinates
+
+if (instance_exists(o_room_changer)) exit;
+
+dy = sy + round((ey - sy) * ease_out_quintic(time/time_max));
+
+time = min(time + 1, time_max);
 </string>
           </argument>
         </arguments>
@@ -214,57 +205,36 @@ if (scrolling) {
           <argument>
             <kind>1</kind>
             <string>/// draw ui
+draw_set_alpha(time/time_max);
 draw_sprite(spr_schedule, 0, dx, dy);
 
 shader_set_clip_rect(dx - 235, dy + 215, dx + 235, dy + 215 + scroll_area_height);
-draw_sprite_ext(spr_stage_explain, 0, dx - 225 + 128, round(scrolled_y) + dy + 225 + 62, 1, 42, 0, c_white, 1);
-draw_set_font(f_namsan_general);
-draw_set_halign(fa_left);
-draw_set_color($212121);
-draw_text(dx - 225 + 128 + 10, round(scrolled_y) + dy + 225 + 62 + 10, "대충 설명설명설명 이러이러해서 저러저러");
 
-draw_window(spr_stage_title, 0, dx - 225 + 128 - 10, round(scrolled_y) + dy + 225 + 20, 280, 42);
-draw_set_color($efefef);
-draw_text_outline(dx - 225 + 128 + 10, round(scrolled_y) + dy + 225 + 20 + 10, minigames[0], 2, $94941c, 4);
+for(var i = 0; i &lt; array_length_1d(minigames); i++) {
 
-draw_window(spr_stage_thumb, 0, dx - 225, round(scrolled_y) + dy + 225, 128, 128);
-
-shader_reset();
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>draw_set_color($000000);
-draw_set_alpha(1);
-draw_set_font(f_nanumgothic);
-draw_set_halign(fa_left);
-draw_set_valign(fa_top);
-
-draw_text(8, 8, '미니게임 선택 화면! 방향키로 선택하고 엔터로 결정합니다. esc로 돌아갑니다.');
-
-var len = array_length_1d(minigames);
-for(var i = 0; i &lt; len; i++) {
-   if(selected == i)
-      draw_text(8, 48 + 28*i, '&gt; ' + minigames[i]);
-   else
-      draw_text(8, 48 + 28*i, minigames[i]);
+    if (hover == i) {
+        draw_set_alpha(0.05);
+        draw_set_color($3e3e3e);
+        draw_rectangle(dx - 235, round(scrolled_y) + dy + 220 + each_height * i, dx - 107 + 335 + 5, round(scrolled_y) + dy + 225 + each_height * i + each_height - 10, 0);
+    }else {
+        draw_sprite_ext(spr_stage_explain, 0, dx - 225 + 128, round(scrolled_y) + dy + 225 + each_height * i + 62, 1, 42, 0, c_white, 1);
+    }
+    
+    draw_set_alpha(time/time_max);
+    
+    draw_set_font(f_namsan_general);
+    draw_set_halign(fa_left);
+    draw_set_valign(fa_top);
+    draw_set_color($212121);
+    draw_text(dx - 225 + 128 + 10, round(scrolled_y) + dy + 225 + each_height * i + 62 + 10, "대충 설명설명설명 이러이러해서 저러저러");
+    
+    draw_window(spr_stage_title, 0, dx - 225 + 128 - 10, round(scrolled_y) + dy + 225 + each_height * i + 20, 280, 42);
+    draw_set_color($efefef);
+    draw_text_outline(dx - 225 + 128 + 10, round(scrolled_y) + dy + 225 + each_height * i + 20 + 10, minigames[i], 2, $94941c, 4);
+    
+    draw_window(spr_stage_thumb, 0, dx - 225, round(scrolled_y) + dy + 225 + each_height * i, 128, 128);
 }
+shader_reset();
 </string>
           </argument>
         </arguments>
