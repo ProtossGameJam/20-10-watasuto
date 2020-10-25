@@ -210,9 +210,9 @@ if (timer &lt; timer_max) {
     timer++;
 }else {
     watasuto_gameover("악플러 머리 꽁하고 때리기 게임",
-      -1, 'dsdadsad',
-      success, failure, 0,
-      100, 5);
+      2, '악플러 퇴치 완료~!',
+      success, failure, success * 100 - failure * 20,
+      success, -success + failure);
 }
 </string>
           </argument>

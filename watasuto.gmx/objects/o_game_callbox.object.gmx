@@ -152,7 +152,7 @@ else if(shotAnim != 0)
 if(time &lt;= 0)
    watasuto_gameover(
       '용건만 간단히',
-      -1, 'adsfasdfasfda',
+      0, '어떻게든 파파라치를 따돌린 것 같다...',
       correct, wrong, (correct - wrong)*100,
       80 + round(20*arctan(max(0, correct - 10*wrong)/20)), 0
    );

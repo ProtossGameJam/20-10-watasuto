@@ -75,6 +75,12 @@ content_bad_percentage = 20;
 content_bad = false;
 content_sprite = noone;
 content_sprite_index = 0;
+
+success = 0;
+failure = 0;
+
+got_likes = 0;
+got_antifans = 0;
 </string>
           </argument>
         </arguments>
@@ -209,6 +215,8 @@ if (cutting) {
 if (!box_opening &amp;&amp; box_points[2] &amp;&amp; box_points[5] &amp;&amp; box_points[8] &amp;&amp; box_points[11] &amp;&amp; box_points[14] &amp;&amp; box_points[17]) {
     box_opening = 1;
     
+    success++;
+    
     content_bad = (irandom(99) &lt; content_bad_percentage);
 
     if (content_bad) {
@@ -216,8 +224,18 @@ if (!box_opening &amp;&amp; box_points[2] &amp;&amp; box_points[5] &amp;&amp; bo
     }else {
         content_sprite = spr_unboxing_good;
     }
-    content_sprite_index = irandom(sprite_get_number(content_sprite) - 1);
+    repeat(3) {
+        content_sprite_index = irandom(sprite_get_number(content_sprite) - 1);
+        if (content_sprite_index &gt; sprite_get_number(content_sprite) / 2) {
+            content_sprite_index = irandom(sprite_get_number(content_sprite) - 1);
+        }
+    }
     
+    if (content_bad) {
+        got_antifans = 2 + round(content_sprite_index / 2);
+    }else {
+        got_likes = 3 + round(content_sprite_index / 2);
+    }
 }
 
 if (box_opening) {
@@ -246,6 +264,36 @@ if (box_passing) {
         box_pass_x = 0;
         box_next_x = 0;
     }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// 게임오버 타이머
+
+if (timer &lt; timer_max) {
+    timer++;
+}else {
+    watasuto_gameover("언 - 빡싱 게임",
+      3, '와! 이렇게나 많다니!',
+      success, failure, success * 20 + got_likes * 50 - got_antifans * 40,
+      got_likes, got_antifans);
 }
 </string>
           </argument>

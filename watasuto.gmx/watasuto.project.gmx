@@ -41,6 +41,7 @@
       <sprite>sprites\spr_stage_title</sprite>
       <sprite>sprites\spr_stage_thumb</sprite>
       <sprite>sprites\spr_stage_explain</sprite>
+      <sprite>sprites\spr_stage_thumb_image</sprite>
     </sprites>
     <sprites name="minigame">
       <sprite>sprites\spr_game_box</sprite>

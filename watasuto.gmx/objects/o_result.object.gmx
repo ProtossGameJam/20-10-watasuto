@@ -60,9 +60,8 @@ if(keyboard_check_pressed(vk_enter) || device_mouse_check_button_pressed(0, mb_l
 
 draw_set_alpha(1);
 draw_sprite(spr_result_title, 0, 640, 30);
-draw_sprite(spr_result_image, 0, 107, 175);
 if(resultSpr != -1)
-   draw_sprite(resultSpr, 0, 147, 186);
+   draw_sprite(spr_result_image, resultSpr, 107, 175);
 draw_sprite(spr_result_image_text, 0, 88, 602);
 draw_sprite(spr_result_score, 0, 641, 196);
 draw_sprite(spr_result_reward, 0, 661, 572);

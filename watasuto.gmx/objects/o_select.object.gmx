@@ -232,7 +232,21 @@ for(var i = 0; i &lt; array_length_1d(minigames); i++) {
     draw_set_color($efefef);
     draw_text_outline(dx - 225 + 128 + 10, round(scrolled_y) + dy + 225 + each_height * i + 20 + 10, minigames[i], 2, $94941c, 4);
     
-    draw_window(spr_stage_thumb, 0, dx - 225, round(scrolled_y) + dy + 225 + each_height * i, 128, 128);
+    var index = i;
+    if (i &gt;= 2)
+        switch(minigameRooms[i]) {
+            case r_hammer_game:
+                index = 2;
+                break;
+            case r_unboxing_game:
+                index = 3;
+                break;
+            case r_qna_game:
+                index = 4;
+                break;
+        }
+    
+    draw_sprite(spr_stage_thumb_image, index, dx - 225, round(scrolled_y) + dy + 225 + each_height * i)
 }
 shader_reset();
 </string>
