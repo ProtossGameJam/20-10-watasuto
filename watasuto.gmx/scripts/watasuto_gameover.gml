@@ -23,10 +23,10 @@ var
 room_change(r_result);
 global.cleared++;
 global.likes += _likes;
-global.antifans += _dislikes;
+global.antifans = max(0, global.antifans + _dislikes);
 if(global.cleared%2 == 0) {
    global.week++;
-   global.subscribers += (global.likes - global.antifans)*0.3;
+   global.subscribers += round((global.likes - global.antifans)*0.3);
 }
 watasuto_save();
 

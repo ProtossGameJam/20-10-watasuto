@@ -25,16 +25,14 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (instance_exists(o_room_changer)) exit;
-
-if(keyboard_check_pressed(vk_enter) || device_mouse_check_button_pressed(0, mb_left)) {
-    global.cleared += 1;
-    global.likes += likes;
-    global.antifans += dislikes;
-    
-   room_change(r_main);
-   instance_destroy();
+            <string>if(room != r_result) {
+    if(instance_exists(o_room_changer) &amp;&amp; room == o_main)
+        instance_destroy();
+    exit;
 }
+
+if(keyboard_check_pressed(vk_enter) || device_mouse_check_button_pressed(0, mb_left))
+    room_change(r_main);
 </string>
           </argument>
         </arguments>
@@ -57,7 +55,11 @@ if(keyboard_check_pressed(vk_enter) || device_mouse_check_button_pressed(0, mb_l
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(spr_result_title, 0, 640, 30);
+            <string>if(room != r_result)
+    exit;
+
+draw_set_alpha(1);
+draw_sprite(spr_result_title, 0, 640, 30);
 draw_sprite(spr_result_image, 0, 107, 175);
 if(resultSpr != -1)
    draw_sprite(resultSpr, 0, 147, 186);
