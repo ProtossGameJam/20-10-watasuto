@@ -20,7 +20,7 @@ var
    _success = argument3, _failure = argument4, _score = argument5,
    _likes = argument6, _dislikes = argument7;
 
-room_goto(r_result);
+room_change(r_result);
 global.cleared++;
 global.likes += _likes;
 global.antifans += _dislikes;

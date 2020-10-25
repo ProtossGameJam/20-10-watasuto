@@ -34,6 +34,8 @@ pass_alpha = 0;
 phase = 0;
 phase_delay = 30;
 
+dy = -15;
+
 x = choose(0, room_width);
 y = choose(0, room_height);
 
@@ -106,11 +108,20 @@ if timer &gt; timer_max {
 }
 
 if !phase {
-image_xscale = ease_in_quartic(max(timer, 0)/timer_max) * size_end;
+    image_xscale = ease_in_quartic(max(timer, 0)/timer_max) * size_end;
+    dy = -20 + ease_in_quartic(max(timer, 0)/timer_max) * 20;
 }else{
-image_xscale = size_end - ease_out_quartic(max(timer, 0)/timer_max) * size_end;
-
-if (device_mouse_check_button_pressed(0, mb_left) &amp;&amp; timer = 0) pass = 1;
+    image_xscale = size_end - ease_out_quartic(max(timer, 0)/timer_max) * size_end;
+    dy = ease_in_quartic(max(timer, 0)/timer_max) * -20;
+    
+    if ((device_mouse_check_button_pressed(0, mb_left) || keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter)) &amp;&amp; timer = 0) {
+        pass = 1;
+        var bgm = get_bgm(room);
+        if (!audio_is_playing(bgm)) {
+            audio_play_sound(bgm, 0, true);
+            audio_sound_gain(bgm, 1, 30);
+        }
+    }
 }
 </string>
           </argument>
@@ -143,18 +154,22 @@ draw_set_alpha(1);
 draw_sprite(spr_dyk_backgorund, 0, 0, 0);
 draw_set_alpha(0.05);
 draw_background_tiled(bg_dyk_loop, background_shift_x, background_shift_y);
-draw_set_alpha(1);
+if (!phase) {
+    draw_set_alpha(0.5 + max(timer, 0)/(timer_max * 2));
+}else {
+    draw_set_alpha(1 - max(timer * 2, 0)/(timer_max));
+}
 
 background_shift_x += lengthdir_x(0.5,image_angle-phase*180);
 background_shift_y += lengthdir_y(0.5,image_angle-phase*180);
-draw_sprite(spr_dyk_character, 0, room_width / 2, room_height / 2 + 45);
+draw_sprite(spr_dyk_character, 0, room_width / 2, dy + room_height / 2 + 45);
 
 draw_set_halign(fa_middle);
 draw_set_valign(fa_top);
 draw_set_color($f2f2f2);
 //draw_set_font(f_namsan_general);
 draw_set_font(f_namsan_header);
-draw_text_transformed(room_width / 2, room_height / 2 + 55, "알고 계셨나요?", 0.6, 0.6, 0);
+draw_text_transformed(room_width / 2,  dy + room_height / 2 + 55, "알고 계셨나요?", 0.6, 0.6, 0);
 
 draw_set_color($c68af2);
 draw_set_font(f_namsan_header);
