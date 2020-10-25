@@ -15,6 +15,7 @@
       <sprite>sprites\spr_cutscene_text</sprite>
       <sprite>sprites\spr_cutscene_continue</sprite>
       <sprite>sprites\spr_cutscene_image</sprite>
+      <sprite>sprites\spr_contract</sprite>
     </sprites>
     <sprites name="main">
       <sprite>sprites\spr_main_room</sprite>
@@ -189,9 +190,9 @@
     <object>objects\o_room_changer</object>
   </objects>
   <rooms name="rooms">
-    <room>rooms\r_contract</room>
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
+    <room>rooms\r_contract</room>
     <room>rooms\r_main</room>
     <room>rooms\r_select</room>
     <room>rooms\r_chatting_game</room>

@@ -53,7 +53,10 @@ titleState = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var
+            <string>if(instance_exists(o_room_changer) || instance_exists(o_contract))
+   exit;
+
+var
    any = mouse_check_button_pressed(mb_any) || keyboard_check_pressed(vk_anykey)
    load = keyboard_check_pressed(ord('L'));
 
@@ -79,8 +82,7 @@ switch(titleState) {
                room_change(r_story);
             } else if(mouse_x &gt;= 666 &amp;&amp; mouse_x &lt; 1227) {
                global.storyMode = true;
-               watasuto_init();
-               room_goto(r_main);
+               instance_create(0, 0, o_contract);
             }
    break;
 }

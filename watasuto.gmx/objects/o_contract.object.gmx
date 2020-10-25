@@ -3,8 +3,8 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
-  <persistent>0</persistent>
+  <depth>-1</depth>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -25,7 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>imeSelected = false;
+            <string>anim = 0;
+
+imeSelected = false;
 imeInput = '';
 imeHangul = true;
 
@@ -79,7 +81,11 @@ sps = '~_+|{}:"&lt;&gt;?';
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var
+            <string>if(!instance_exists(o_room_changer)) {
+
+/// 죽음의 한글 IME 절대 건드리지 마시오
+
+var
    shift = keyboard_check(vk_shift),
    hangul = keyboard_check_pressed(vk_tab),
    backspace = keyboard_check_pressed(vk_backspace);
@@ -288,6 +294,46 @@ if(backspace &amp;&amp; imeInput != '') {
 for(var i = 37; i &lt; 41; i++)
    if(keyboard_check_pressed(i))
       imeSelected = false;
+
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if(instance_exists(o_room_changer)) {
+   if(room != r_contract)
+      instance_destroy();
+   exit;
+}
+
+if(++anim == 30)
+   room_goto(r_contract);
+
+if(string_length(imeInput) &gt; 8) {
+   imeSelected = false;
+   imeInput = string_copy(imeInput, 1, 8);
+}
+if(keyboard_check_pressed(vk_enter) &amp;&amp; imeInput != '') {
+   watasuto_init();
+   global.name = imeInput;
+   room_change(r_main);
+}
 </string>
           </argument>
         </arguments>
@@ -310,25 +356,34 @@ for(var i = 37; i &lt; 41; i++)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_set_colour($ffffff);
+            <string>var cx = room_width/2, cy = (1 + 2*exp(-anim/16))*room_height/2;
+
+if(anim &lt;= 30) {
+   draw_set_colour($000000);
+   draw_set_alpha(anim/30);
+   draw_rectangle(0, 0, room_width, room_height, false);
+}
+
+draw_set_colour($ffffff);
 draw_set_alpha(1);
 draw_set_font(f_nanumgothic);
 draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 
-draw_text(8, 8, '한글 IME 테스트!');
+draw_sprite(spr_contract, 0, cx, cy);
+draw_set_colour($000000);
 if(imeSelected) {
    var
       l = string_length(imeInput),
       w = string_width(string_delete(imeInput, l, 1)),
       m = string_width(string_char_at(imeInput, l)),
       h = string_height(' ');
-   draw_text(8, 32, string_delete(imeInput, string_length(imeInput), 1));
-   draw_rectangle(8 + w, 32, 7 + w + m, 31 + h, false);
-   draw_set_colour($000000);
-   draw_text(8 + w, 32, string_char_at(imeInput, l));
+   draw_text(cx + 89, cy + 251, string_delete(imeInput, string_length(imeInput), 1));
+   draw_rectangle(cx + 89 + w, cy + 251, cx + 88 + w + m, cy + 250 + h, false);
+   draw_set_colour($ffffff);
+   draw_text(cx + 89 + w, cy + 251, string_char_at(imeInput, l));
 } else
-   draw_text(8, 32, imeInput);
+   draw_text(cx + 89, cy + 251, imeInput);
 </string>
           </argument>
         </arguments>
