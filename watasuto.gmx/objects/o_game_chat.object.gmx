@@ -39,10 +39,10 @@ timer = 0;
 timer_max = room_speed * 60; // 임시 게임오버 조건
 
 for(var i=0; i&lt;viewer_amount; i++){
+    viewers[| i] = -1;
     var viewer = ds_map_create();
     ds_map_add(viewer, "name", "착한유저");
     ds_map_add(viewer, "chat", "채팅채팅채팅채팅크크크크");
-    ds_map_add(viewer, "life", 0);
     ds_map_add(viewer, "checked", false);
     ds_map_add(viewer, "icon", 1);
     ds_map_add(viewer, "bad", false);
@@ -52,7 +52,6 @@ for(var i=0; i&lt;viewer_amount; i++){
 chatting_regen_delay_var = 0.5;
 chatting_regen_delay = 75;
 chatting_regen = 0;
-chatting_life = 3600;
 chatting_bad_ratio = 10;
 chatting_bad_ratio_adjust = 0;
 chatting_bad_ratio_adjust_max = 2;
@@ -64,6 +63,35 @@ left = 474;
 top = 152; 
 
 show_play = 0;
+
+chat_start();
+chat_set_key('hi');
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>for(var i = 0; i &lt; viewer_amount; i++)
+    if(viewers[| i] != -1)
+        ds_map_destroy(viewers[| i]);
+ds_list_destroy(viewers);
 </string>
           </argument>
         </arguments>
@@ -93,58 +121,45 @@ if (instance_exists(o_room_changer)) exit;
 if (chatting_regen &gt; 0)
     chatting_regen--;
 else {
-    chatting_regen = chatting_regen_delay+irandom_range(-chatting_regen_delay*chatting_regen_delay_var,chatting_regen_delay*chatting_regen_delay_var);
+    chatting_regen = chatting_regen_delay+irandom_range(
+        -chatting_regen_delay*chatting_regen_delay_var,
+        chatting_regen_delay*chatting_regen_delay_var
+    );
     
-    var empty_list = ds_list_create();
-    for(var i=0; i&lt;viewer_amount; i++){
-        var viewer = viewers[| i];
-        if (viewer[? "life"] == 0)
-            ds_list_add(empty_list, viewer);
-    }
-    if !ds_list_empty(empty_list){
-        var selected = empty_list[| 0];
-    }else {
-        for(var i=0; i&lt;viewer_amount-1; i++){
-            var viewer = viewers[| i];
-            var viewer_next = viewers[| i+1];
-            
-            viewer[? "name"] = viewer_next[? "name"];
-            viewer[? "chat"] = viewer_next[? "chat"];
-            viewer[? "life"] = viewer_next[? "life"];
-            viewer[? "checked"] = viewer_next[? "checked"];
-            viewer[? "icon"] = viewer_next[? "icon"];
-            viewer[? "bad"] = viewer_next[? "bad"];
+    var bad = random(1) &lt; (chatting_bad_ratio + chatting_bad_ratio_adjust)/100, chat;
+    if(bad)
+        chat = chat_get_bad();
+    else
+        chat = chat_get();
+    if(!is_undefined(chat)) {
+        var selected = viewers[| 0];
+        if(selected == -1)
+            selected = ds_map_create();
+        for(var i=0; i&lt;viewer_amount-1; i++)
+            viewers[| i] = viewers[| i + 1];
+        viewers[| viewer_amount - 1] = selected;
+        
+        // 새 채팅 생성
+        selected[? "checked"] = false;
+        
+        if(!bad) {
+            if (chatting_bad_ratio_adjust_max &gt; 0)
+                chatting_bad_ratio_adjust +=  (100-chatting_bad_ratio) / (100/chatting_bad_ratio*chatting_bad_ratio_adjust_max);
+            selected[? "bad"] = false;
+            selected[? "icon"] = irandom_range(1,2);
+        } else {
+            chatting_bad_ratio_adjust = 0;
+            selected[? "bad"] = true;
+            selected[? "icon"] = 0;
         }
-        var selected = viewers[| viewer_amount-1];
+        
+        selected[? "name"] = choose("무이", "잇창명", "산소", "암흑마왕 2호", "착한유저", "못된유저");
+        selected[? "chat"] = chat;
     }
-    
-    // 새 채팅 생성
-    selected[? "life"] = chatting_life;
-    selected[? "checked"] = false;
-    
-    if !(irandom(99) &lt; chatting_bad_ratio+chatting_bad_ratio_adjust){
-        if (chatting_bad_ratio_adjust_max &gt; 0)
-            chatting_bad_ratio_adjust +=  (100-chatting_bad_ratio) / (100/chatting_bad_ratio*chatting_bad_ratio_adjust_max);
-        selected[? "bad"] = false;
-        selected[? "icon"] = irandom_range(1,2);
-    }else {
-        chatting_bad_ratio_adjust = 0;
-        selected[? "bad"] = true;
-        selected[? "icon"] = 0;
-    }
-    
-    selected[? "name"] = choose("무이", "잇창명", "산소", "암흑마왕 2호", "착한유저", "못된유저");
-    selected[? "chat"] = choose("채팅채팅크크크크", "이건 좀 너무한거 아닌가요??", "채팅채팅채팅크크크크", "망해버려!", "넘 조아요~~~~");
-    
-    ds_list_destroy(empty_list);
 }
 
-
-for(var i=0; i&lt;viewer_amount; i++){
-    var viewer = viewers[| i];
-    if (viewer[? "life"] &gt; 0)
-        viewer[? "life"]--;
-}
+if(random(1) &lt; 1/300)
+    chat_set_key(choose('lol', 'clutch', 'stupid', 'poor', 'altlol', 'suddenly', 'eatrun', 'cliche', 'respects', 'spicy'));
 </string>
           </argument>
         </arguments>
@@ -203,20 +218,20 @@ var _mouse_y = device_mouse_y(0);
 
 for(var i=0; i&lt;viewer_amount; i++){
     var viewer = viewers[| i];
+    if(viewer == -1)
+        continue;
     
-    if (click &amp;&amp; viewer[? "life"] &gt; 0 &amp;&amp; viewer[? "checked"] == false)
+    if (click &amp;&amp; viewer[? "checked"] == false)
         if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+viewer_height-6) {
             if (viewer[? "bad"]) block_bad++;
             else block_wrong++;
             
             viewer[? "checked"] = true;
         }
-        
-    if (viewer[? "life"] &gt; 0){
-        if (viewer[? "bad"]) draw_set_color(c_red);
-        else draw_set_color(c_gray);
-        draw_rectangle(40+left+viewer_width*(i mod viewer_linebreak), 40+top+viewer_height*floor(i/viewer_linebreak), -40+left+viewer_width*(i mod viewer_linebreak)+viewer_width, -40+top+viewer_height*floor(i/viewer_linebreak)+viewer_height, 1);
-    }
+     
+    if (viewer[? "bad"]) draw_set_color(c_red);
+    else draw_set_color(c_gray);
+    draw_rectangle(40+left+viewer_width*(i mod viewer_linebreak), 40+top+viewer_height*floor(i/viewer_linebreak), -40+left+viewer_width*(i mod viewer_linebreak)+viewer_width, -40+top+viewer_height*floor(i/viewer_linebreak)+viewer_height, 1);
 }
 
 var up = mouse_wheel_up() | 0;
@@ -227,9 +242,6 @@ if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*4-22, 23+22, roo
 }
 if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*3-22, 23+22, room_height-28-24*3) {
     chatting_regen_delay_var += (up-down) * 0.1;
-}
-if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*2-22, 23+22, room_height-28-24*2) {
-    chatting_life += (up-down) * 5;
 }
 if point_in_rectangle(_mouse_x, _mouse_y, 23, room_height-28-24*1-22, 23+22, room_height-28-24*1) {
     chatting_bad_ratio += (up-down) * 5;
@@ -311,6 +323,7 @@ show_play++;
           <argument>
             <kind>1</kind>
             <string>/// test draw
+draw_set_halign(fa_left);
 draw_set_valign(fa_top)
 draw_set_font(f_nanumgothic);
 draw_set_color(c_gray);
@@ -321,7 +334,7 @@ draw_text(25, 25, "잡은 악플러 : "+string(block_bad)+"
 draw_set_valign(fa_bottom)
 draw_text(45, room_height-25, "채팅 생성간격 : "+string(chatting_regen_delay/room_speed)+"초
 채팅 생성간격 변화범위 : "+string(floor(chatting_regen_delay_var*100))+"%
-채팅 유지시간 : "+string(chatting_life/room_speed)+"초
+[deleted]
 악플 확률 : "+string(chatting_bad_ratio)+"%
 악플 확률 보정 최대 횟수 : (100÷악플 확률×"+string(chatting_bad_ratio_adjust_max)+") ("+string(100/chatting_bad_ratio*chatting_bad_ratio_adjust_max)+"회)");
 
@@ -361,31 +374,28 @@ var _mouse_y = device_mouse_y(0);
 
 for(var i=0; i&lt;viewer_amount; i++){
     var viewer = viewers[| i];
+    if(viewer == -1)
+        continue;
     
-    if (viewer[? "life"] &gt; 0){
-        
-        if (viewer[? "checked"]) draw_set_alpha(0.4);
-        else draw_set_alpha(1);
-        
-        // hover
-        if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+viewer_height-6) {
-            draw_set_color($f1f1f1);
-            draw_rectangle(left-7, top+viewer_height*i-7, left+viewer_width, top+viewer_height*i+viewer_height - 5, 0);
-        }
-        
-        draw_sprite_ext(spr_cm_icon, viewer[? "icon"], left, top + viewer_height*i-1, 0.5, 0.5, 0, c_white, draw_get_alpha());
-        
-        if (viewer[? "bad"]) draw_set_color(c_red);
-        else draw_set_color(c_dkgray);
-        
-        draw_set_font(f_nanumgothic);
-        draw_set_halign(fa_left)
-        draw_set_valign(fa_top)
-        draw_text(left + 35, top + viewer_height*i + 4, viewer[? "name"]);
-        draw_set_color(c_gray);
-        draw_text(left + 35 + string_width(viewer[? "name"]) + 5, top + viewer_height*i + 4, viewer[? "chat"]);
+    if (viewer[? "checked"]) draw_set_alpha(0.4);
+    else draw_set_alpha(1);
+    
+    // hover
+    if point_in_rectangle(_mouse_x, _mouse_y, left-6, top+viewer_height*i-6, left+viewer_width, top+viewer_height*i+viewer_height-6) {
+        draw_set_color($f1f1f1);
+        draw_rectangle(left-7, top+viewer_height*i-7, left+viewer_width, top+viewer_height*i+viewer_height - 5, 0);
     }
     
+    draw_sprite_ext(spr_cm_icon, viewer[? "icon"], left, top + viewer_height*i-1, 0.5, 0.5, 0, c_white, draw_get_alpha());
+    
+    if (viewer[? "bad"]) draw_set_color(c_red);
+    else draw_set_color(c_dkgray);
+    
+    draw_set_font(f_nanumgothic);
+    draw_set_valign(fa_top)
+    draw_text(left + 35, top + viewer_height*i + 4, viewer[? "name"]);
+    draw_set_color(c_gray);
+    draw_text(left + 35 + string_width(viewer[? "name"]) + 5, top + viewer_height*i + 4, viewer[? "chat"]);
 }
 </string>
           </argument>

@@ -159,7 +159,7 @@ btime = 0;
 채팅 메시지는 여러 개의 카테고리로 분류되어 있습니다. 모든 키는 문자열입니다.
 
 [?key] = 그 키에 속한 메시지 개수
-[?key + i] = i번째 메시지 본문. 일부 메시지는 하드코딩이 되어 있습니다.
+[?key + i] = i번째 메시지 본문
 [?key + i + '*'] = (있을 경우) i번째 메시지 가중치. 기본값 1
 [?key + '%'] = (자동 생성) 누적 확률 배열을 나타내는 ds_list
 
@@ -180,6 +180,7 @@ db[?'cliche'] = 2; // 뇌절
 db[?'respects'] = 2; // X
 db[?'spicy'] = 2; // 매운맛
 db[?'random'] = 8; // 무맥락 아무말
+db[?'bad'] = 5; // 악플
 
 // Q&amp;A-specific
 db[?'correct'] = 2; // 누가 봐도 [정답]이지
@@ -214,7 +215,7 @@ db[?'hi0'] = '_하[~ 0 3]'
 db[?'hi1'] = 'ㅎㅇㅎㅇ'
 db[?'hi2'] = 'ㅎㅇ'
 db[?'hi3'] = 'ㅎㅇ요~'
-// db[?'lol0'] = '[ㅋㅋㅋㅌ 4 16]' [hardcoded]
+db[?'lol0'] = '[ㅋ 4 16]'
 db[?'lol1'] = '[ㅋ 2 16]'
 db[?'lol2'] = '엌[ㅋ 3 15]'
 db[?'lol2*'] = 0.5;
@@ -270,6 +271,12 @@ db[?'random4'] = 'ㅁㅇㅁㅇ';
 db[?'random5'] = '__/논란';
 db[?'random6'] = '앗 아아...';
 db[?'random7'] = 'ㅇ0ㅇ';
+
+db[?'bad0'] = '스트리머 오브 더 이☆세☆카☆이 가입시$$전원 팔로워☜☜100명증정※';
+db[?'bad1'] = '개노잼';
+db[?'bad2'] = '실화냐ㅡㅡ';
+db[?'bad3'] = '머리카락 오징어같네 ㅋㅋ';
+db[?'bad4'] = '-_-';
 
 db[?'correct0'] = '이런 건 틀리면 안되지 [ㅋ 2 4]';
 db[?'correct1'] = '문제 누가 냈냐 [ㅋ 2 6]';
@@ -413,6 +420,7 @@ keys[35] = 'qafermat';
 keys[36] = 'qafermatwrong';
 keys[37] = 'qafermatcorrect';
 keys[38] = 'qaend';
+keys[39] = 'bad';
 var mpLen = array_length_1d(keys);
 
 for(var i = 0; i &lt; mpLen; i++) {

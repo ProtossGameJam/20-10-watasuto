@@ -166,6 +166,7 @@
       <script>scripts\chat_burst.gml</script>
       <script>scripts\chat_get.gml</script>
       <script>scripts\chat_get_burst.gml</script>
+      <script>scripts\chat_get_bad.gml</script>
       <script>scripts\_chat_substitute.gml</script>
     </scripts>
   </scripts>
