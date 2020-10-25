@@ -32,7 +32,8 @@ wrong = 0;
 shield = 2;
 time = 300;
 timeMax = 300;
-timeMp = 1;
+timeMp = 0.75 + 0.25*get_difficulty();
+timeMpDelta = 0.0125*(3 + get_difficulty());
 anim = 0;
 wobbleAnim = 0;
 wrongAnim = 0;
@@ -112,7 +113,7 @@ if(inputAll)
    if(input[next[0]]) {
       correct++;
       time += 60;
-      timeMp += 0.05;
+      timeMp += timeMpDelta;
       next[0] = next[1];
       next[1] = next[2];
       next[2] = irandom_range(0, 3);
@@ -152,8 +153,8 @@ if(time &lt;= 0)
    watasuto_gameover(
       '용건만 간단히',
       -1, 'adsfasdfasfda',
-      correct, wrong, 0,
-      100, 0
+      correct, wrong, (correct - wrong)*100,
+      80 + round(20*arctan(max(0, correct - 10*wrong)/20)), 0
    );
 </string>
           </argument>
@@ -224,7 +225,7 @@ for(var i = 2; i &gt;= 0; i--)
 
 draw_set_colour($0040ff);
 draw_set_alpha(1);
-draw_rectangle(74, 669, 74 + 1132*time/timeMax, 688, false);
+draw_rectangle(74, 669, 74 + 1132*max(0, time)/timeMax, 688, false);
 </string>
           </argument>
         </arguments>
