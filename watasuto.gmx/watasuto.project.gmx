@@ -166,6 +166,7 @@
     <script>scripts\room_change.gml</script>
     <script>scripts\get_twowitch_grade.gml</script>
     <script>scripts\get_bgm.gml</script>
+    <script>scripts\get_difficulty.gml</script>
     <scripts name="chat">
       <script>scripts\chat_start.gml</script>
       <script>scripts\chat_stop.gml</script>

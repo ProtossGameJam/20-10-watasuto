@@ -187,7 +187,7 @@ if (timer &lt; timer_max) {
 }else {
     watasuto_gameover("실시간 채팅 관리",
       -1, 'dsdadsad',
-      block_wrong, block_bad, 0,
+      block_bad, block_wrong, 0,
       100, 5);
 }
 </string>
