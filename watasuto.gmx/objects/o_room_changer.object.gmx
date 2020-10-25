@@ -51,6 +51,23 @@ background_shift_x = 0;
 background_shift_y = 0;
 
 surf = -1;
+
+var info, joke;
+info[0] = "매니저씨는 '스테이크는 역시 미디움 레어지!'라고 생각합니다.";
+info[1] = "스트리머쨩은 MBTI를 믿지 않는다고 합니다.";
+info[2] = "스트리머쨩은 현실 세계에서 감자만 먹고 살았습니다.";
+info[3] = "스트리머쨩은 오직 돈과 밥 때문에 스트리머 생활을 합니다.";
+info[4] = "스트리머쨩은 지금 배가 고픕니다.";
+info[5] = "유니코드에는 총 3,521개의 이모지가 정의되어 있습니다.";
+info[6] = "이모지는 일본어로 '그림 문자'라는 뜻입니다.";
+joke[0] = "잇창명은 사실 멍창잇입니다.";
+joke[1] = "저희도 몰랐습니다.";
+joke[2] = "[속보] 프로토스 운영진분들이 치킨 안사줌";
+joke[3] = "여기 텍스트 더 넣어야 됨 ㅁㄴㅇㄹ";
+if(random(1) &lt; 0.1)
+   splash = joke[irandom(3)];
+else
+   splash = info[irandom(6)];
 </string>
           </argument>
         </arguments>
@@ -156,10 +173,10 @@ draw_text_transformed(room_width / 2,  dy + room_height / 2 + 55, "알고 계셨
 
 draw_set_color($c68af2);
 draw_set_font(f_namsan_header);
-var w = string_width("이 스트리머는 배가 고픕니다.");
-var h = string_height("이 스트리머는 배가 고픕니다.");
-draw_window( spr_dyk_textbar, 0, round(room_width / 2 - w * 0.8 / 2 - 75),  dy + round(room_height / 2 + 110), round(w * 0.8) + 150, h + 15)
-draw_text_transformed(room_width / 2,  dy + room_height / 2 + 125, "이 스트리머는 배가 고픕니다.", 0.8, 0.8, 0);
+var w = string_width(splash);
+var h = string_height(splash);
+draw_window( spr_dyk_textbar, 0, round(room_width / 2 - w * 0.8 / 2 - 75), round(room_height / 2 + 110), round(w * 0.8) + 150, h + 15)
+draw_text_transformed(room_width / 2, room_height / 2 + 125, splash, 0.8, 0.8, 0);
 
 if (phase &amp;&amp; timer &gt;= 0) {
     draw_set_halign(fa_right);
