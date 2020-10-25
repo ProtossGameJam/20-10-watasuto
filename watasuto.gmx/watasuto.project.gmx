@@ -176,6 +176,7 @@
     <object>objects\o_watasuto_title</object>
     <object>objects\o_chat_system</object>
     <object>objects\o_story</object>
+    <object>objects\o_contract</object>
     <object>objects\o_main</object>
     <object>objects\o_select</object>
     <object>objects\o_game_chat</object>
@@ -188,6 +189,7 @@
     <object>objects\o_room_changer</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\r_contract</room>
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_main</room>
