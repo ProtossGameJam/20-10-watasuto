@@ -89,11 +89,18 @@ if timer &gt; timer_max {
 }
 
 if !phase {
-image_xscale = ease_in_quartic(max(timer, 0)/timer_max) * size_end;
+    image_xscale = ease_in_quartic(max(timer, 0)/timer_max) * size_end;
 }else{
-image_xscale = size_end - ease_out_quartic(max(timer, 0)/timer_max) * size_end;
+    image_xscale = size_end - ease_out_quartic(max(timer, 0)/timer_max) * size_end;
 
-if (device_mouse_check_button_pressed(0, mb_left) &amp;&amp; timer = 0) pass = 1;
+    if (device_mouse_check_button_pressed(0, mb_left) &amp;&amp; timer = 0) {
+        pass = 1;
+    }
+    var bgm = get_bgm(room);
+    if (!audio_is_playing(bgm)) {
+        audio_play_sound(bgm, 0, true);
+        audio_sound_gain(bgm, 1, 30);
+    }
 }
 </string>
           </argument>

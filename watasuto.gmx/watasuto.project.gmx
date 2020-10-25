@@ -5,7 +5,12 @@
   </Configs>
   <datafiles number="1" name="datafiles"/>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\sound_bgm_main</sound>
+    <sound>sound\sound_bgm_minigame</sound>
+    <sound>sound\sound_bgm_minigame_fast</sound>
+    <sound>sound\sound_bgm_result</sound>
+  </sounds>
   <sprites name="sprites">
     <sprites name="title">
       <sprite>sprites\spr_title_anykey</sprite>
@@ -153,6 +158,7 @@
     <script>scripts\shader_set_clip_mask.gml</script>
     <script>scripts\room_change.gml</script>
     <script>scripts\get_twowitch_grade.gml</script>
+    <script>scripts\get_bgm.gml</script>
     <scripts name="chat">
       <script>scripts\chat_start.gml</script>
       <script>scripts\chat_stop.gml</script>
