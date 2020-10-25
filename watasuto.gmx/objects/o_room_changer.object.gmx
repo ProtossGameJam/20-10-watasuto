@@ -111,17 +111,17 @@ if timer &gt; timer_max {
 
 if !phase {
     image_xscale = ease_in_quartic(max(timer, 0)/timer_max) * size_end;
-    dy = -20 + ease_in_quartic(max(timer, 0)/timer_max) * 20;
+    dy = -15 + ease_in_quartic(max(timer, 0)/timer_max) * 15;
 }else{
     image_xscale = size_end - ease_out_quartic(max(timer, 0)/timer_max) * size_end;
-    dy = ease_in_quartic(max(timer, 0)/timer_max) * -20;
+    dy = ease_out_quartic(max(timer, 0)/timer_max) * -20;
     
     if ((device_mouse_check_button_pressed(0, mb_left) || keyboard_check_pressed(vk_space) || keyboard_check_pressed(vk_enter)) &amp;&amp; timer = 0) {
         pass = 1;
         var bgm = get_bgm(room);
         if (!audio_is_playing(bgm)) {
             audio_play_sound(bgm, 0, true);
-            audio_sound_gain(bgm, 1, 30);
+            audio_sound_gain(bgm, 1, 400);
         }
     }
 }
@@ -159,7 +159,7 @@ draw_background_tiled(bg_dyk_loop, background_shift_x, background_shift_y);
 if (!phase) {
     draw_set_alpha(0.5 + max(timer, 0)/(timer_max * 2));
 }else {
-    draw_set_alpha(1 - max(timer * 2, 0)/(timer_max));
+    draw_set_alpha(1 - max(timer * 4, 0)/(timer_max));
 }
 
 background_shift_x += lengthdir_x(0.5,image_angle-phase*180);
@@ -177,8 +177,8 @@ draw_set_color($c68af2);
 draw_set_font(f_namsan_header);
 var w = string_width(splash);
 var h = string_height(splash);
-draw_window( spr_dyk_textbar, 0, round(room_width / 2 - w * 0.8 / 2 - 75), round(room_height / 2 + 110), round(w * 0.8) + 150, h + 15)
-draw_text_transformed(room_width / 2, room_height / 2 + 125, splash, 0.8, 0.8, 0);
+draw_window( spr_dyk_textbar, 0, round(room_width / 2 - w * 0.8 / 2 - 40), dy + round(room_height / 2 + 110), round(w * 0.8) + 80, dy + h + 15)
+draw_text_transformed(room_width / 2, dy + room_height / 2 + 125, splash, 0.8, 0.8, 0);
 
 if (phase &amp;&amp; timer &gt;= 0) {
     draw_set_halign(fa_right);
