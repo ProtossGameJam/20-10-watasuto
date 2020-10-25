@@ -57,15 +57,15 @@ iseAnim = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var
+            <string>if(instance_exists(o_room_changer))
+   exit;
+
+var
    next =
       mouse_check_button_pressed(mb_left) ||
       keyboard_check_pressed(vk_space) ||
       keyboard_check_pressed(vk_enter),
    len = string_length(lineText[line]);
-   
-if(instance_exists(o_room_changer))
-   exit;
 
 if(next) {
    if(char &lt; len)
