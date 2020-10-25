@@ -111,6 +111,7 @@
     <script>scripts\watasuto_save.gml</script>
     <script>scripts\watasuto_load.gml</script>
     <script>scripts\qna_decode.gml</script>
+    <script>scripts\string_next_token.gml</script>
     <script>scripts\draw_window.gml</script>
     <script>scripts\draw_window_ext.gml</script>
     <script>scripts\draw_text_outline.gml</script>
@@ -151,6 +152,15 @@
     <script>scripts\shader_set_clip_mask.gml</script>
     <script>scripts\room_change.gml</script>
     <script>scripts\get_twowitch_grade.gml</script>
+    <scripts name="chat">
+      <script>scripts\chat_start.gml</script>
+      <script>scripts\chat_stop.gml</script>
+      <script>scripts\chat_set_key.gml</script>
+      <script>scripts\chat_burst.gml</script>
+      <script>scripts\chat_get.gml</script>
+      <script>scripts\chat_get_burst.gml</script>
+      <script>scripts\_chat_substitute.gml</script>
+    </scripts>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shd_clip_rect.shader</shader>
@@ -164,6 +174,7 @@
   </fonts>
   <objects name="objects">
     <object>objects\o_watasuto_title</object>
+    <object>objects\o_chat_system</object>
     <object>objects\o_story</object>
     <object>objects\o_main</object>
     <object>objects\o_select</object>
@@ -177,6 +188,7 @@
     <object>objects\o_room_changer</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\r_qna_game</room>
     <room>rooms\r_watasuto_title</room>
     <room>rooms\r_story</room>
     <room>rooms\r_main</room>
@@ -185,7 +197,6 @@
     <room>rooms\r_callbox_game</room>
     <room>rooms\r_hammer_game</room>
     <room>rooms\r_unboxing_game</room>
-    <room>rooms\r_qna_game</room>
     <room>rooms\r_result</room>
   </rooms>
   <help>
