@@ -210,7 +210,7 @@ db[?'qaoxygen_'] = 3;
 db[?'qafermat'] = 4; // 페르마의 마지막 떡밥
 db[?'qafermatwrong'] = 5; // 페르마의 마지막 떡밥 실패
 db[?'qafermatcorrect'] = 5; // 페르마의 마지막 떡밥 성공
-db[?'qaend'] = 5; // Q&amp;A 끝
+db[?'qaend'] = 4; // Q&amp;A 끝
 
 db[?'hi0'] = '_하[~ 0 3]'
 db[?'hi1'] = 'ㅎㅇㅎㅇ'
